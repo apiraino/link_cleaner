@@ -131,7 +131,7 @@ browser.webRequest.onBeforeRequest.addListener(
 );
 
 
-function remove_searchparams(requestDetails) {
+function remove_alisearchparams(requestDetails) {
     var url = new URL(requestDetails.url)
     if (url.search.length > 0) {
         url.search = "";
@@ -140,7 +140,7 @@ function remove_searchparams(requestDetails) {
     }
 }
 browser.webRequest.onBeforeRequest.addListener(
-    remove_searchparams,
+    remove_alisearchparams,
     {
         urls: [
             "*://*.aliexpress.com/item/*.html*",
