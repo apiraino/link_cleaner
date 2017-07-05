@@ -1,31 +1,28 @@
-// Filter out utm_* query parameters
-function clean_utm(requestDetails) {
-    var url = new URL(requestDetails.url)
-    //console.log("cleanURL utm_*", url.href);
-
-    if (url.search.length > 0) {
-        var params = url.searchParams;
-        var new_params = new URLSearchParams(params);
-        var needs_redirect = false;
-        for (let p of params.keys()) {
-            if (p.startsWith("utm_")) {
-                needs_redirect = true;
-                new_params.delete(p);
+function build_query_param_remover(shouldRemove) {
+    return function (requestDetails) {
+        var url = new URL(requestDetails.url);
+        if (url.search.length > 0) {
+            var params = url.searchParams;
+            var new_params = new URLSearchParams(params);
+            var needs_redirect = false;
+            for (let p of params.keys()) {
+                if (shouldRemove(p)) {
+                    needs_redirect = true;
+                    new_params.delete(p);
+                }
+            }
+            if (needs_redirect) {
+                var new_url = new URL(url);
+                new_url.search = new_params.toString();
+                return {redirectUrl: new_url.href};
             }
         }
-        if (needs_redirect) {
-            var new_url = new URL(url);
-            new_url.search = new_params.toString();
-            /*console.info("Removing utm_* params from url: ",
-                requestDetails.url, "  and redirection to: ",
-                new_url.href);*/
-            return {redirectUrl: new_url.href};
-        }
-    }
-
-
-    return {};
+        return {};
+    };
 }
+
+// Filter out utm_* query parameters
+var clean_utm = build_query_param_remover(function(p) { return p.startsWith("utm_") });
 
 browser.webRequest.onBeforeRequest.addListener(
     clean_utm,
@@ -128,14 +125,7 @@ browser.webRequest.onBeforeRequest.addListener(
 );
 
 
-function remove_alisearchparams(requestDetails) {
-    var url = new URL(requestDetails.url)
-    if (url.search.length > 0) {
-        url.search = "";
-        //console.info("Clean url to:", url.href);
-        return {redirectUrl: url.href};
-    }
-}
+var remove_alisearchparams = build_query_param_remover(function (p) { return true });
 browser.webRequest.onBeforeRequest.addListener(
     remove_alisearchparams,
     {
@@ -146,25 +136,7 @@ browser.webRequest.onBeforeRequest.addListener(
     }, ["blocking"]
 );
 
-function remove_fbcontentparam(requestDetails) {
-    if (url.search.length > 0) {
-        var params = url.searchParams;
-        var new_params = new URLSearchParams(params);
-        var needs_redirect = false;
-        for (let p of params.keys()) {
-            if (p == "efg") {
-                needs_redirect = true;
-                new_params.delete(p);
-            }
-        }
-        if (needs_redirect) {
-            var new_url = new URL(url);
-            new_url.search = new_params.toString();
-            return {redirectUrl: new_url.href};
-        }
-    }
-    return {};
-}
+var remove_fbcontentparam = build_query_param_remover(function (p) { return p == "efg" });
 browser.webRequest.onBeforeRequest.addListener(
     remove_fbcontentparam,
     {
@@ -173,7 +145,6 @@ browser.webRequest.onBeforeRequest.addListener(
         ], types: ["main_frame"]
     }, ["blocking"]
 );
-
 
 function build_redirect_to_query_param(query_param_name){
   const redirect_to_get_param = function(requestDetails){
