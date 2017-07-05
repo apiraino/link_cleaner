@@ -19,15 +19,12 @@ function clean_utm(requestDetails) {
             /*console.info("Removing utm_* params from url: ",
                 requestDetails.url, "  and redirection to: ",
                 new_url.href);*/
-            return {
-                redirectUrl: new_url.href
-            }
+            return {redirectUrl: new_url.href};
         }
     }
 
 
-    return {
-    }
+    return {};
 }
 
 browser.webRequest.onBeforeRequest.addListener(
