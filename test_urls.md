@@ -9,3 +9,17 @@ https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.fsf.org%2Fcampaigns%2F&h=ATP1kf
 https://out.reddit.com/t3_5pq7qd?url=https%3A%2F%2Finternethealthreport.org%2Fv01%2F&token=AQAAZV6JWHBBnIcVjV1wvxVg5gKyCQQSdUhGIvuEUmdPZhxhm8kH&app_name=reddit.com
 
 https://steamcommunity.com/linkfilter/?url=https://getfedora.org/
+
+http://l.instagram.com/?u=http%3A%2F%2Fwww.espn.com%2F&e=ATPKY26Z5_uyeX4Ctrg1qpchVeS_WrWuUxIc0ZOOkw0D5eKJLKlZeUr8JTMqBKo
+
+http://t.umblr.com/redirect?z=http%3A%2F%2Fwww.syfy.com%2Fsyfywire%2Fastronomers-discover-a-new-type-of-star-blaps&t=OWVjZWQxNWMyYjgzMDhmMzQwODIzYzYzNWZiZGNmYzg3YzM4YmU5YyxjR0tuNWV0TQ%3D%3D&b=t%3ABczG7bf4maOuK2EGQxAofw&p=http%3A%2F%2Felimik.tumblr.com%2Fpost%2F164722605832&m=1
+
+https://sys.4chan.org/derefer?url=https%3A%2F%2Fbugzilla.mozilla.org%2Fshow_bug.cgi%3Fid%3D863246
+
+https://www.youtube.com/redirect?event=desc&q=http%3A%2F%2Fteamcoco.com%2Fvideo&redir_token=ChYY8dsZLMAP7sJpm9HsMdgY2bF8MTUwNTU4MTg2MUAxNTA1NDk1NDYx
+
+https://www.google.com/url?q=https://soundcloud.com&sa=D&ust=1504422217100000&usg=AFQjCNG9C
+
+https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&cad=rja&uact=8&ved=0ahUKEwiU4JDYyZvUAhUoxFQKHf5IAEAQFggsMAE&url=https%3A%2F%2Fgithub.com%2Fidlewan%2Flink_cleaner&usg=AFQjCNHLsiLWuJifp8qBynFPaicSw0gLGw&sig2=imkIeC-CN_z-8x5NgFr4TQ
+
+https://lm.facebook.com/l.php?u=http%3A%2F%2Fwww.dailycal.org%2F2018%2F10%2F11%2Fuc-berkeley-community-hosts-events-for-zero-waste-october%2F%3Ffbclid%3Dnotachance&h=AT3jrqKvULa2phePG9px8v7dWeSEtBniR2q9sGAyzA5_Yejv-5jJsM1bsJx_d54bk6OOdVBX8z8FUmXXKTy52eDYSnazhoD8HHypKGNyFFNPhHP6gzCaf0TlwstD10pBrRW7s_2-AOpCvch7AKqeXJAZp_MiRnKCxA0n7SiMzMEqYFlAD3ngCc0BNXlH7KQol2PRDAqIW8xMisdRzY2rsh475bHX03bKs76CIv1Y6oMACrlsS5i51Bk_7Dx3EvLOZsrTX8UoxRn9lYEY9kUM7tLA3wwF1XpFsXfXUM4lqDBmNGZmg5LC6NJ1gRQMLbzkpw12eF5YOvVX7N45kiXuSC2JxeiI7FX0hZRrPwSKDdx3unkz9kKzk-CMjEWG1jBpJf8L99rsS0Y3wkBRKUM-pp1HhNJkc9dzZ4B51-9CPNa1B_YKnxPYaN57HnaWy5lfojUVSbxl5C8_53EpSMyLdApxf_cXykvpzbA6_KsPlDqINfikghLskLcqiRG98HvEPTHhDsgNUi0ZUIUqs8gbekgzEg6SgkSzS_ai33VkmDN6Cs--uvEctT9yRCKdiuVo1Eb1ef8G-KuPsh8tUo7JhK07jRIhedbeUnqIUtqwiVWE_P4dyLFdJCZ7Mby1AGG4KbxKqVehZDeaWBHBA4eYjMFBtUCw3ISjZ7iAMIvm6Jdjxo2qXHY1TjT4MsswVC3Z2ruCIQDoXKdReto0GddPOOj0EtGTvtub2WJNatzWRHIkFnP3NBLrWfPc7bI55jhfUsvmkSX7Qo2loSSYGeRkTbcEma2O1_2-TP1iGEk7B0joPQcDdYLBiGJnHw7dsorfi4acsoTroyDrlwvXvxQaHjFFOr3CyrGXfG6SrEtoZVE4E6nhSng9q32Z_7QqXXQNTkRlzoqlp-RL3HfV_Kqu2hUgfyNc0Z_zsMw72zcbYoIgV-W7xM8GgL-F

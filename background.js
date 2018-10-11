@@ -31,7 +31,6 @@ browser.webRequest.onBeforeRequest.addListener(
     }, ["blocking"]
 );
 
-// Filter out Facebook fbclid query param on outgoing URLs
 var clean_fbclid = build_query_param_remover(function(p) { return p == "fbclid" });
 browser.webRequest.onBeforeRequest.addListener(
     clean_fbclid, {
