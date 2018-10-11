@@ -146,6 +146,35 @@ browser.webRequest.onBeforeRequest.addListener(
     }, ["blocking"]
 );
 
+function remove_fbcontentparam(requestDetails) {
+    if (url.search.length > 0) {
+        var params = url.searchParams;
+        var new_params = new URLSearchParams(params);
+        var needs_redirect = false;
+        for (let p of params.keys()) {
+            if (p == "efg") {
+                needs_redirect = true;
+                new_params.delete(p);
+            }
+        }
+        if (needs_redirect) {
+            var new_url = new URL(url);
+            new_url.search = new_params.toString();
+            return {redirectUrl: new_url.href};
+        }
+    }
+    return {};
+}
+browser.webRequest.onBeforeRequest.addListener(
+    remove_fbcontentparam,
+    {
+        urls: [
+            "*://*.fbcdn.net/*",
+        ], types: ["main_frame"]
+    }, ["blocking"]
+);
+
+
 function build_redirect_to_query_param(query_param_name){
   const redirect_to_get_param = function(requestDetails){
     const search_params = new URLSearchParams(new URL(requestDetails.url).search);
