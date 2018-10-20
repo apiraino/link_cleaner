@@ -61,5 +61,9 @@ $ rm -f ~/tmp/link_cleaner_1.5.zip
 $ zip -r -FS ~/tmp/link_cleaner_1.5.zip . -i manifest.* *.js
 ```
 
+# Credits
+
+German localization: [finke.media](https://www.finke.media)
+
 # License
 Released under the GPLv3 license

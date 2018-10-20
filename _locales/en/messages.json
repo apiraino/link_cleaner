@@ -1,0 +1,16 @@
+{
+    "extensionName": {
+        "message": "Link cleaner",
+        "description": "Name of the extension."
+    },
+
+    "extensionDescription": {
+        "message": "Browser extension to clean URLs that are about to be visited.",
+        "description": "Description of the extension."
+    },
+
+    "menuItemCopyAndClean": {
+        "message": "Copy and sanitize link",
+        "description": "Title of context menu item."
+    }
+}

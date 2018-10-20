@@ -2,7 +2,6 @@
 function clean_utm(requestDetails) {
     var url = new URL(requestDetails.url);
     // console.debug("cleanURL utm_*", url.href);
-    console.debug('Entering clean_utm -- got url: ' + url.href);
 
     if (url.search.length > 0) {
         var params = url.searchParams;
@@ -56,10 +55,8 @@ function clean_amazon(url) {
         }
     } else {
         url = new URL(url);
-        console.debug("URL search: ", url.search);
         if (url.search.length > 0) {
             url.search = "";
-            console.debug("Clean url to:", url.href);
             new_url.href = url.href;
         }
     }
@@ -173,37 +170,118 @@ browser.webRequest.onBeforeRequest.addListener(
 );
 
 function build_redirect_to_query_param(query_param_name){
-  const redirect_to_get_param = function(requestDetails){
-    const search_params = new URLSearchParams(new URL(requestDetails.url).search);
-    const real_url_from_param = search_params.get(query_param_name);
-    if (real_url_from_param){
-      // console.log('Redirecting to ' + real_url_from_param);
-      return {redirectUrl: real_url_from_param};
-    }
-  }
-  return redirect_to_get_param;
+    // console.debug('Build redirect with params: ' + query_param_name);
+    const redirect_to_get_param = function(requestDetails){
+        const search_params = new URLSearchParams(new URL(requestDetails.url).search);
+        const real_url_from_param = search_params.get(query_param_name);
+        if (real_url_from_param){
+            // console.debug('Redirecting to ' + real_url_from_param);
+            return {redirectUrl: real_url_from_param};
+        }
+        return {redirectUrl: ''};
+    };
+    return redirect_to_get_param;
 }
 
 const urls_to_param_mappers = [
-  {
-    urls: ["*://l.facebook.com/*"],
-    param_name: 'u'
-  },
-  {
-    urls: ["*://out.reddit.com/*"]
-  },
-  {
-    urls: ["*://steamcommunity.com/linkfilter/*"]
-  }
+    {
+        urls: ["*://l.facebook.com/*"],
+        param_name: 'u'
+    },
+    {
+        urls: ["*://out.reddit.com/*"]
+    },
+    {
+        urls: ["*://steamcommunity.com/linkfilter/*"]
+    }
 ];
 
 urls_to_param_mappers.forEach(function(listenerConfig) {
-  const param_name = listenerConfig.param_name ? listenerConfig.param_name : 'url';
-  // console.log('Mapping ' + listenerConfig.urls + ' to param name ' + param_name);
-  browser.webRequest.onBeforeRequest.addListener(
-    build_redirect_to_query_param(param_name), {
-      urls: listenerConfig.urls,
-      types: ["main_frame"]
-    }, ["blocking"]
-  );
+    const param_name = listenerConfig.param_name ? listenerConfig.param_name : 'url';
+    // console.debug('Mapping ' + listenerConfig.urls + ' to param name ' + param_name);
+    browser.webRequest.onBeforeRequest.addListener(
+        build_redirect_to_query_param(param_name), {
+            urls: listenerConfig.urls,
+            types: ["main_frame"]
+        }, ["blocking"]
+    );
 });
+
+
+/*
+  additional menu item
+  ref: Mozilla tutorial
+  https://github.com/mdn/webextensions-examples/tree/master/menu-demo
+*/
+
+/*
+Called when the item has been created, or when creation failed due to an error.
+We'll just log success/failure here.
+*/
+function onCreated() {
+    if (browser.runtime.lastError) {
+        console.log(`Error: ${browser.runtime.lastError}`);
+    } else {
+        console.log("Item created successfully");
+    }
+}
+
+/*
+  Create all the context menu items.
+*/
+browser.menus.create({
+    id: "copy-link",
+    title: browser.i18n.getMessage("menuItemCopyAndClean"),
+    contexts: ["selection", "link"]
+}, onCreated);
+
+/*
+  The click event listener, where we perform the appropriate action given the
+  ID of the menu item that was clicked.
+*/
+browser.menus.onClicked.addListener((info, tab) => {
+    switch (info.menuItemId) {
+    case "copy-link":
+        copyToClipboard(info.linkUrl);
+        break;
+    }
+});
+
+/*
+  copy to clipboard
+  ref: https://github.com/def00111/copy-link-text
+*/
+
+var strToCopy = "";
+
+function copyToClipboard(text) {
+    // does not work inside frame
+    if ((document.activeElement instanceof HTMLIFrameElement) ||
+        (document.activeElement instanceof HTMLFrameElement)) {
+        // need to call it twice :/
+        document.activeElement.blur();
+        document.activeElement.blur();
+    }
+    strToCopy = text;
+    document.execCommand("copy");
+}
+
+
+function oncopy(event) {
+    if (strToCopy === "") {
+        return;
+    }
+
+    // Hide the event from the page to prevent tampering.
+    event.stopImmediatePropagation();
+
+    // Overwrite the clipboard content.
+    event.preventDefault();
+
+    // return {redirectUrl: new_url.href};
+    var sanitizedURL = clean_amazon(strToCopy);
+    event.clipboardData.setData("text", sanitizedURL['redirectUrl']);
+    strToCopy = "";
+}
+
+document.addEventListener("copy", oncopy, true);

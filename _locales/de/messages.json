@@ -1,0 +1,16 @@
+{
+    "extensionName": {
+        "message": "Link cleaner",
+        "description": "Name of the extension."
+    },
+
+    "extensionDescription": {
+        "message": "Browser Add-on um URLs zu anonymisieren, bevor sie besucht werden.",
+        "description": "Description of the extension."
+    },
+
+    "menuItemCopyAndClean": {
+        "message": "Link-Addresse kopieren und anonymisieren",
+        "description": "Title of context menu item."
+    }
+}

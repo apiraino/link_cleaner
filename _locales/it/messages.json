@@ -1,0 +1,16 @@
+{
+    "extensionName": {
+        "message": "Link cleaner",
+        "description": "Name of the extension."
+    },
+
+    "extensionDescription": {
+        "message": "Estensione per ripulire gli URL prima di visitarli.",
+        "description": "Description of the extension."
+    },
+
+    "menuItemCopyAndClean": {
+        "message": "Copia e pulisci link",
+        "description": "Title of context menu item."
+    }
+}

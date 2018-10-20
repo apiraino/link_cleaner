@@ -23,3 +23,5 @@ permissions:
 - webRequest
 - webRequestBlocking
 - contextMenus
+
+default_locale: 'en'
