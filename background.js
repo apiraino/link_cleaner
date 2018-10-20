@@ -1,7 +1,8 @@
 // Filter out utm_* query parameters
 function clean_utm(requestDetails) {
-    var url = new URL(requestDetails.url)
-    //console.log("cleanURL utm_*", url.href);
+    var url = new URL(requestDetails.url);
+    // console.debug("cleanURL utm_*", url.href);
+    console.debug('Entering clean_utm -- got url: ' + url.href);
 
     if (url.search.length > 0) {
         var params = url.searchParams;
@@ -17,17 +18,16 @@ function clean_utm(requestDetails) {
             var new_url = new URL(url);
             new_url.search = new_params.toString();
             /*console.info("Removing utm_* params from url: ",
-                requestDetails.url, "  and redirection to: ",
-                new_url.href);*/
+              requestDetails.url, "  and redirection to: ",
+              new_url.href);*/
             return {
                 redirectUrl: new_url.href
-            }
+            };
         }
     }
 
-
     return {
-    }
+    };
 }
 
 browser.webRequest.onBeforeRequest.addListener(
@@ -38,28 +38,46 @@ browser.webRequest.onBeforeRequest.addListener(
 );
 
 
-function clean_amazon(requestDetails) {
+function clean_amazon_req(requestDetails) {
     var url = requestDetails.url;
+    return clean_amazon(url);
+}
+
+function clean_amazon(url) {
+    // console.debug('Entering clean_amazon -- got url: ' + url);
+    var new_url = document.createElement('a');
     let slash_d_index = url.indexOf("/d");
     let slash_ref_index = url.indexOf("/ref=", slash_d_index + 2);
     if (slash_ref_index > 0 && url.length > slash_ref_index + 1) {
-        var new_url = url.substring(0, slash_ref_index + 1);
-        if (new_url != url) {   // try to avoid infinite redirect loops that might arise
-            //console.info("Redirecting from: ", url, " to:", new_url);
-            return {redirectUrl: new_url};
+        new_url.href = url.substring(0, slash_ref_index + 1);
+        if (new_url.href != url) {   // try to avoid infinite redirect loops that might arise
+            console.warn('Is something strange happening?');
+            console.debug("Redirecting from: ", url, "\nto: ", new_url.href);
         }
     } else {
         url = new URL(url);
+        console.debug("URL search: ", url.search);
         if (url.search.length > 0) {
             url.search = "";
-            //console.info("Clean url to:", url.href);
-            return {redirectUrl: url.href};
+            console.debug("Clean url to:", url.href);
+            new_url.href = url.href;
         }
     }
+
+    // scrap SEO friendly text
+    var dp_idx = new_url.pathname.indexOf('/dp');
+    if (dp_idx > 0) {
+        console.debug('Stripping out SEO stuff: ' + new_url.pathname);
+        new_url.pathname = new_url.pathname.substring(dp_idx, new_url.pathname.length);
+    }
+    console.debug("final url is: " + new_url.href);
+    return {redirectUrl: new_url.href};
 }
 
 browser.webRequest.onBeforeRequest.addListener(
-    clean_amazon,
+    clean_amazon_req,
+    // note: "the wildcard may only appear at the start"
+    // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Match_patterns
     {urls: [
         "*://*.amazon.com/d/*",
         "*://*.amazon.ca/d/*",
@@ -74,6 +92,7 @@ browser.webRequest.onBeforeRequest.addListener(
         "*://*.amazon.com.au/d/*",
         "*://*.amazon.com.br/d/*",
 
+        // dp = detail product
         "*://*.amazon.com/dp/*",
         "*://*.amazon.ca/dp/*",
         "*://*.amazon.co.jp/dp/*",
@@ -87,6 +106,7 @@ browser.webRequest.onBeforeRequest.addListener(
         "*://*.amazon.com.au/dp/*",
         "*://*.amazon.com.br/dp/*",
 
+        // gp = General Product
         "*://*.amazon.com/gp/aw/d/*",
         "*://*.amazon.ca/gp/aw/d/*",
         "*://*.amazon.co.jp/gp/aw/d/*",
@@ -100,7 +120,7 @@ browser.webRequest.onBeforeRequest.addListener(
         "*://*.amazon.com.au/gp/aw/d/*",
         "*://*.amazon.com.br/gp/aw/d/*",
 
-
+        // SEO friendly descriptiion + detail product
         "*://*.amazon.com/*/dp/*",
         "*://*.amazon.ca/*/dp/*",
         "*://*.amazon.co.jp/*/dp/*",
@@ -132,13 +152,16 @@ browser.webRequest.onBeforeRequest.addListener(
 
 
 function remove_searchparams(requestDetails) {
-    var url = new URL(requestDetails.url)
+    var url = new URL(requestDetails.url);
+    console.debug('Entering remove_searchparams -- got url: ' + url);
     if (url.search.length > 0) {
         url.search = "";
-        //console.info("Clean url to:", url.href);
+        // console.debug("Clean url to:", url.href);
         return {redirectUrl: url.href};
     }
+    return {redirectUrl: ''};
 }
+
 browser.webRequest.onBeforeRequest.addListener(
     remove_searchparams,
     {
