@@ -12,35 +12,54 @@ You can now visit and bookmark clean links instead of the long,
 tracking-enabled ones!
 
 # Examples:
-- utm_* removal:  
-    http://meyerweb.com/eric/thoughts/2017/03/07/welcome-to-the-grid/?utm_source=frontendfocus&utm_medium=email  
-  is changed to:  
+- utm_* removal:
+    http://meyerweb.com/eric/thoughts/2017/03/07/welcome-to-the-grid/?utm_source=frontendfocus&utm_medium=email
+  is changed to:
     http://meyerweb.com/eric/thoughts/2017/03/07/welcome-to-the-grid/
-- amazon item url:  
-    https://www.amazon.com/AmazonBasics-Type-C-USB-Male-Cable/dp/B01GGKYQ02/ref=sr_1_1?s=amazonbasics&srs=10112675011&ie=UTF8&qid=1489067885&sr=8-1&keywords=usb-c  
-  is changed to:  
+- amazon item url:
+    https://www.amazon.com/AmazonBasics-Type-C-USB-Male-Cable/dp/B01GGKYQ02/ref=sr_1_1?s=amazonbasics&srs=10112675011&ie=UTF8&qid=1489067885&sr=8-1&keywords=usb-c
+  is changed to:
     https://www.amazon.com/AmazonBasics-Type-C-USB-Male-Cable/dp/B01GGKYQ02/
-- facebook redirect:  
-    https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.fsf.org%2Fcampaigns%2F&h=ATP1kf98S0FxqErjoW8VmdSllIp4veuH2_m1jl69sEEeLzUXbkNXrVnzRMp65r5vf21LJGTgJwR2b66m97zYJoXx951n-pr4ruS1osMvT2c9ITsplpPU37RlSqJsSgba&s=1  
-  is changed to  
+- facebook redirect:
+    https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.fsf.org%2Fcampaigns%2F&h=ATP1kf98S0FxqErjoW8VmdSllIp4veuH2_m1jl69sEEeLzUXbkNXrVnzRMp65r5vf21LJGTgJwR2b66m97zYJoXx951n-pr4ruS1osMvT2c9ITsplpPU37RlSqJsSgba&s=1
+  is changed to
     https://www.fsf.org/campaigns/
-- reddit redirect:  
-    https://out.reddit.com/t3_5pq7qd?url=https%3A%2F%2Finternethealthreport.org%2Fv01%2F&token=AQAAZV6JWHBBnIcVjV1wvxVg5gKyCQQSdUhGIvuEUmdPZhxhm8kH&app_name=reddit.com  
-  is changed to:  
+- reddit redirect:
+    https://out.reddit.com/t3_5pq7qd?url=https%3A%2F%2Finternethealthreport.org%2Fv01%2F&token=AQAAZV6JWHBBnIcVjV1wvxVg5gKyCQQSdUhGIvuEUmdPZhxhm8kH&app_name=reddit.com
+  is changed to:
     https://internethealthreport.org/v01/
-- steam redirect  
-    https://steamcommunity.com/linkfilter/?url=https://getfedora.org/  
-  is changed to:  
+- steam redirect
+    https://steamcommunity.com/linkfilter/?url=https://getfedora.org/
+  is changed to:
     https://getfedora.org/
+
+For a full list of test cases, have a look at the included `test_urls.html` file.
 
 # Comparison to other add-ons
 Unlike other legacy add-ons like CleanLinks, Link Cleaner doesn't inject
-JavaScript into pages to change links.
-Instead, it listens to main url requests and changes them (if needed to remove
-redirects or tracking.
+JavaScript into pages to change links.  Instead, it listens to main url requests
+and changes them (if needed to remove redirects or tracking.
 
 That means it's doing less unneeded work and consumes less resources
 (memory and CPU).
+
+# Notes
+
+Cleaning Amazon URLs will break any affiliation program. Just remember to use
+the usual "copy link location" shortcut that if you want to support the
+third-party affiliate program.
+
+# Test the extension locally
+
+Install Use the provided script `web-ext-run.sh` to launch Firefox with a
+dedicated profile, created at runtime. The add-ons is already installed and the
+browser will open on the test HTML page.
+
+# Build extension for publishing
+``` bash
+$ rm -f ~/tmp/link_cleaner_1.5.zip
+$ zip -r -FS ~/tmp/link_cleaner_1.5.zip . -i manifest.* *.js
+```
 
 # License
 Released under the GPLv3 license
