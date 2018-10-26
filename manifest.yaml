@@ -16,6 +16,7 @@ description: >
 
 background:
   scripts:
+  - cleaning_rules.js
   - background.js
 
 permissions:
