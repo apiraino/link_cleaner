@@ -57,8 +57,8 @@ browser will open on the test HTML page.
 
 # Build extension for publishing
 ``` bash
-$ rm -f ~/tmp/link_cleaner_1.5.zip
-$ zip -r -FS ~/tmp/link_cleaner_1.5.zip . -i manifest.* *.js
+$ rm -f ~/tmp/link_cleaner_x.y.zip
+$ zip -r -FS ~/tmp/link_cleaner_x.y.xpi manifest.json *.js _locales/ options/
 ```
 
 # Credits
