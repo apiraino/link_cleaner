@@ -51,15 +51,30 @@ third-party affiliate program.
 
 # Test the extension locally
 
+You can use the `web-ext` package to keep things easier (see [documentation](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/web-ext_command_reference#web-ext_sign) and [how to install](https://github.com/mozilla/web-ext)).
+
 Install Use the provided script `web-ext-run.sh` to launch Firefox with a
-dedicated profile, created at runtime. The add-ons is already installed and the
+dedicated profile. The add-ons is already installed and the
 browser will open on the test HTML page.
+
+Notice that since the profile is created at runtime, preferences saved by the extension will be lost once the frowser will be closed (unless the parameter `--keep-profile-changes` is added to the `web-ext-run.sh` script.
+
+The profile should be located in `/tmp`.
 
 # Build extension for publishing
 ``` bash
+# not signed, local installation
 $ rm -f ~/tmp/link_cleaner_x.y.zip
 $ zip -r -FS ~/tmp/link_cleaner_x.y.xpi manifest.json *.js _locales/ options/
 ```
+
+``` bash
+# signed, suitable for publishing (needs API key set in env)
+$ web-ext sign --ignore-files web-ext-run.sh
+```
+
+Note: the `sign` subcommand [has a bug](https://github.com/mozilla/web-ext/issues/793) when reading API keys from env.
+
 
 # Credits
 

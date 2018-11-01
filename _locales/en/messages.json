@@ -15,7 +15,7 @@
     },
 
     "settingsTitle": {
-        "message": "Further settings:",
+        "message": "Settings:",
         "description": "Whether to clean AMP links too"
     },
 
@@ -28,6 +28,4 @@
         "message": "Save Preferences",
         "description": "Says it all ..."
     }
-
-
 }

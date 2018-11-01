@@ -3,12 +3,6 @@
 // TODO: not a string anymore
 var strToCopy = {"redirectUrl": ""};
 
-browser.runtime.onMessage.addListener(notify);
-
-function notify(message) {
-    update_settings(message);
-}
-
 // Clean AMP URLs
 function clean_amp(old_url) {
     var new_url = new URL(old_url);
@@ -50,19 +44,22 @@ function clean_utm(old_url) {
             /*console.info("Removing utm_* params from url: ",
               requestDetails.url, "  and redirection to: ",
               new_url.href);*/
-            return new_url.href;
+            console.debug("[clean_utm] returning new_url: " + new_url.href);
+            // return new_url.href;
+            return {redirectUrl: new_url.href};
         }
     }
 
-    console.debug(">>> prefs: " + settings['clean_amp_links']);
+    console.debug("[clean_utm] settings are: ", settings);
     if (settings['clean_amp_links'] === true) {
         console.debug("AMP cleaning ACTIVE");
         url.href = clean_amp(url.href);
     } else {
         console.debug("AMP cleaning DISABLED");
     }
-    console.debug(">>> returning: " + url.href);
-    return url.href;
+    console.debug("[clean_utm] returning url: " + url.href);
+    // return url.href;
+    return {redirectUrl: url.href};
 }
 
 browser.webRequest.onBeforeRequest.addListener(
