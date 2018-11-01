@@ -3,30 +3,53 @@
 // TODO: not a string anymore
 var strToCopy = {"redirectUrl": ""};
 
+function isEmptyObject (obj) {
+    return (Object.keys(obj).length === 0 && obj.constructor === Object);
+}
+
 // Clean AMP URLs
-function clean_amp(old_url) {
-    var new_url = new URL(old_url);
-    console.debug("clean_amp before: " + new_url.href);
+function clean_amp(url) {
+    var new_url = new URL(url);
+    console.debug("clean_amp before: " + url.href);
     var regex = /\/amp/gi;
-    new_url.href = new_url.href.replace(regex, '');
+    new_url.href = url.href.replace(regex, '');
+
+    var params = url.searchParams;
+    var new_params = new URLSearchParams(params);
+    for (let p of params.keys()) {
+        if (p === "amp") {
+            new_params.delete(p);
+            new_url.search = new_params.toString();
+            break;
+        }
+    }
+
     console.debug("clean_amp after: " + new_url.href);
-    return new_url.href;
+    return new_url;
 }
 
 // Filter out utm_* query parameters
 
+// callback triggered by new tab
 function clean_utm_req(requestDetails) {
     var url = requestDetails.url;
     return clean_utm(url);
 }
 
+// callback triggered by copy link
 function clean_utm_evt(e) {
-    strToCopy["redirectUrl"] = clean_utm(strToCopy['redirectUrl']);
+    var _res = clean_utm(strToCopy['redirectUrl']);
+    console.debug("[clean_utm_evt] " , _res);
+    if (!isEmptyObject(_res)) {
+        console.debug("[clean_utm_evt] overwriting ",  strToCopy, " with ", _res);
+        strToCopy = _res;
+    }
 }
 
 function clean_utm(old_url) {
     var url = new URL(old_url);
-    console.debug("clean_utm: " + url);
+    console.debug("[clean_utm] got " + url);
+    var ret_val = {};
 
     if (url.search.length > 0) {
         var params = url.searchParams;
@@ -38,28 +61,29 @@ function clean_utm(old_url) {
                 new_params.delete(p);
             }
         }
+
         if (needs_redirect) {
-            var new_url = new URL(url);
-            new_url.search = new_params.toString();
-            /*console.info("Removing utm_* params from url: ",
-              requestDetails.url, "  and redirection to: ",
-              new_url.href);*/
-            console.debug("[clean_utm] returning new_url: " + new_url.href);
-            // return new_url.href;
-            return {redirectUrl: new_url.href};
+            url.search = new_params.toString();
+            ret_val = {redirectUrl: url.href};
         }
+
+        // clean AMP url
+        // this should stay somewhere else
+        // these listeners should be serialized
+        if (settings['clean_amp_links'] === true) {
+            console.debug("AMP cleaning ACTIVE");
+            var cleaned_url = clean_amp(url);
+            if (cleaned_url.href !== url.href) {
+                ret_val = {redirectUrl: cleaned_url.href};
+            }
+        } else {
+            console.debug("AMP cleaning DISABLED");
+        }
+
     }
 
-    console.debug("[clean_utm] settings are: ", settings);
-    if (settings['clean_amp_links'] === true) {
-        console.debug("AMP cleaning ACTIVE");
-        url.href = clean_amp(url.href);
-    } else {
-        console.debug("AMP cleaning DISABLED");
-    }
-    console.debug("[clean_utm] returning url: " + url.href);
-    // return url.href;
-    return {redirectUrl: url.href};
+    console.debug("[clean_utm] untouched URL, no redirect");
+    return ret_val;
 }
 
 browser.webRequest.onBeforeRequest.addListener(
@@ -84,7 +108,7 @@ function clean_amazon(url) {
         if (new_url.href != url) {   // try to avoid infinite redirect loops that might arise
             console.warn('Is something strange happening?');
             console.debug("Redirecting from: ", url, "\nto: ", new_url.href);
-            // return {redirectUrl: new_url.href};
+            // TODO: return {redirectUrl: new_url.href};
         }
     } else {
         url = new URL(url);
