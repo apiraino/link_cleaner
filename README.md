@@ -57,7 +57,7 @@ Install Use the provided script `web-ext-run.sh` to launch Firefox with a
 dedicated profile. The add-ons is already installed and the
 browser will open on the test HTML page.
 
-Notice that since the profile is created at runtime, preferences saved by the extension will be lost once the frowser will be closed (unless the parameter `--keep-profile-changes` is added to the `web-ext-run.sh` script.
+Notice that since the profile is created at runtime, preferences saved by the extension will be lost once the browser will be closed (unless the parameter `--keep-profile-changes` is added to the `web-ext-run.sh` script.
 
 The profile should be located in `/tmp`.
 
