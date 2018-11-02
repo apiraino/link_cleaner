@@ -1,8 +1,5 @@
 "use strict";
 
-// TODO: not a string anymore
-var strToCopy = {"redirectUrl": ""};
-
 function isEmptyObject (obj) {
     return (Object.keys(obj).length === 0 && obj.constructor === Object);
 }
@@ -36,20 +33,10 @@ function clean_utm_req(requestDetails) {
     return clean_utm(url);
 }
 
-// callback triggered by copy link
-function clean_utm_evt(e) {
-    var _res = clean_utm(strToCopy['redirectUrl']);
-    console.debug("[clean_utm_evt] " , _res);
-    if (!isEmptyObject(_res)) {
-        console.debug("[clean_utm_evt] overwriting ",  strToCopy, " with ", _res);
-        strToCopy = _res;
-    }
-}
-
 function clean_utm(old_url) {
     var url = new URL(old_url);
     console.debug("[clean_utm] got " + url);
-    var ret_val = {};
+    var ret_val = {'redirectUrl': ''};
 
     if (url.search.length > 0) {
         var params = url.searchParams;
@@ -63,13 +50,14 @@ function clean_utm(old_url) {
         }
 
         if (needs_redirect) {
+            console.debug("[clean_utm] needs redirect!!");
             url.search = new_params.toString();
             ret_val = {redirectUrl: url.href};
         }
 
         // clean AMP url
         // this should stay somewhere else
-        // these listeners should be serialized
+        // cleaner listeners should be serialized
         if (settings['clean_amp_links'] === true) {
             console.debug("AMP cleaning ACTIVE");
             var cleaned_url = clean_amp(url);
@@ -82,7 +70,7 @@ function clean_utm(old_url) {
 
     }
 
-    console.debug("[clean_utm] untouched URL, no redirect");
+    console.debug("[clean_utm] returning " , ret_val['redirectUrl']);
     return ret_val;
 }
 

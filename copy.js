@@ -2,8 +2,11 @@
 
 /*
   copy text to clipboard
-  ref: https://github.com/def00111/copy-link-text
+  ref: https://github.com/mdn/webextensions-examples/tree/master/context-menu-copy-link-with-types
+
 */
+
+var global_link_text = '';
 
 function copyToClipboard(text) {
     console.debug("Called copyToClipboard");
@@ -14,26 +17,32 @@ function copyToClipboard(text) {
         document.activeElement.blur();
         document.activeElement.blur();
     }
-    strToCopy['redirectUrl'] = text;
+
+    // clean link text
+    // TODO: we need a global entrypoint to all cleaners
+    console.debug("[copytoclipboard] link to be cleaned " + text);
+    global_link_text = clean_utm(text)['redirectUrl'];
+    console.debug("[copytoclipboard] link cleaned " + global_link_text);
     document.execCommand("copy");
 }
 
+/*
+  Get cleaned link text and copy it back into the clipboard
+  We need an event for this
+*/
 
 function oncopy(event) {
-    if (strToCopy['redirectUrl'] === "") {
+    console.debug("[oncopy] " + global_link_text);
+    if (global_link_text === "") {
         return;
     }
-    console.debug("Called COPY: " + strToCopy['redirectUrl']);
 
     // Hide the event from the page to prevent tampering.
     event.stopImmediatePropagation();
-
-    // Overwrite the clipboard content.
     event.preventDefault();
 
-    event.clipboardData.setData("text/plain", strToCopy['redirectUrl']);
-    strToCopy["redirectUrl"] = "";
+    event.clipboardData.setData("text/plain", global_link_text);
+    global_link_text = '';
 }
 
-document.addEventListener("copy", clean_utm_evt, true);
 document.addEventListener("copy", oncopy, true);
