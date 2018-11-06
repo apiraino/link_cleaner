@@ -184,7 +184,7 @@ function build_redirect_to_query_param(query_param_name) {
             //console.log('Redirecting to ' + real_url_from_param);
             return { redirectUrl: real_url_from_param };
         }
-        return {redirectUrl: ''};
+        return { redirectUrl: '' };
     }
     return redirect_to_get_param;
 }
