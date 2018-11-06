@@ -1,18 +1,21 @@
 {
-  "author": "Erwan Ameil",
-  "background": {
-    "scripts": [
-      "background.js"
-    ]
-  },
-  "description": "Clean URLs that are about to be visited: - removes utm_* parameters - on item pages of aliexpress and amazon, removes tracking parameters - skip redirect pages of facebook, steam and reddit (directly go to the url being redirected to, and never hit their outgoing redirect tracking)\nYou can now visit and bookmark clean links instead of the long, tracking-enabled ones!\n",
-  "homepage_url": "https://github.com/idlewan/link_cleaner",
-  "manifest_version": 2,
-  "name": "Link Cleaner",
-  "permissions": [
-    "<all_urls>",
-    "webRequest",
-    "webRequestBlocking"
-  ],
-  "version": "1.5"
+    "author": "Erwan Ameil",
+    "background": {
+        "scripts": [
+            "background.js"
+        ]
+    },
+    "description": "Clean URLs that are about to be visited: - removes utm_* parameters - on item pages of aliexpress and amazon, removes tracking parameters - skip redirect pages of facebook, steam and reddit (directly go to the url being redirected to, and never hit their outgoing redirect tracking)\nYou can now visit and bookmark clean links instead of the long, tracking-enabled ones!\n",
+    "homepage_url": "https://github.com/idlewan/link_cleaner",
+    "manifest_version": 2,
+    "name": "Link Cleaner",
+    "permissions": [
+        "<all_urls>",
+        "webRequest",
+        "webRequestBlocking",
+        "contextMenus",
+        "menus"
+    ],
+    "version": "1.5",
+    "default_locale": "en"
 }

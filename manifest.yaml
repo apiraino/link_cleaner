@@ -22,3 +22,6 @@ permissions:
 - '<all_urls>'
 - webRequest
 - webRequestBlocking
+- contextMenus
+
+default_locale: 'en'

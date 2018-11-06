@@ -40,28 +40,45 @@ browser.webRequest.onBeforeRequest.addListener(
 );
 
 
-function clean_amazon(requestDetails) {
+function clean_amazon_req(requestDetails) {
     var url = requestDetails.url;
+    return clean_amazon(url);
+}
+
+function clean_amazon(url) {
+    // console.debug('Entering clean_amazon -- got url: ' + url);
+    var new_url = document.createElement('a');
     let slash_d_index = url.indexOf("/d");
     let slash_ref_index = url.indexOf("/ref=", slash_d_index + 2);
     if (slash_ref_index > 0 && url.length > slash_ref_index + 1) {
-        var new_url = url.substring(0, slash_ref_index + 1);
-        if (new_url != url) {   // try to avoid infinite redirect loops that might arise
-            //console.info("Redirecting from: ", url, " to:", new_url);
-            return { redirectUrl: new_url };
+        new_url.href = url.substring(0, slash_ref_index + 1);
+        if (new_url.href != url) {   // try to avoid infinite redirect loops that might arise
+            console.warn('Is something strange happening?');
+            console.debug("Redirecting from: ", url, "\nto: ", new_url.href);
         }
     } else {
         url = new URL(url);
         if (url.search.length > 0) {
             url.search = "";
-            // console.info("Clean url to:", url.href);
-            return { redirectUrl: url.href };
+            new_url.href = url.href;
         }
     }
+
+    // scrap SEO friendly text
+    var dp_idx = new_url.pathname.indexOf('/dp');
+    if (dp_idx > 0) {
+        console.debug('Stripping out SEO stuff: ' + new_url.pathname);
+        new_url.pathname = new_url.pathname.substring(dp_idx, new_url.pathname.length);
+    }
+    console.debug("final url is: " + new_url.href);
+    return { redirectUrl: new_url.href };
 }
 
 browser.webRequest.onBeforeRequest.addListener(
-    clean_amazon, {
+    clean_amazon,
+    // note: "the wildcard may only appear at the start"
+    // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Match_patterns
+    {
         urls: [
             "*://*.amazon.com/d/*",
             "*://*.amazon.ca/d/*",
@@ -76,6 +93,7 @@ browser.webRequest.onBeforeRequest.addListener(
             "*://*.amazon.com.au/d/*",
             "*://*.amazon.com.br/d/*",
 
+            // dp = detail product
             "*://*.amazon.com/dp/*",
             "*://*.amazon.ca/dp/*",
             "*://*.amazon.co.jp/dp/*",
@@ -89,6 +107,7 @@ browser.webRequest.onBeforeRequest.addListener(
             "*://*.amazon.com.au/dp/*",
             "*://*.amazon.com.br/dp/*",
 
+            // gp = General Product
             "*://*.amazon.com/gp/aw/d/*",
             "*://*.amazon.ca/gp/aw/d/*",
             "*://*.amazon.co.jp/gp/aw/d/*",
@@ -102,7 +121,7 @@ browser.webRequest.onBeforeRequest.addListener(
             "*://*.amazon.com.au/gp/aw/d/*",
             "*://*.amazon.com.br/gp/aw/d/*",
 
-
+            // SEO friendly descriptiion + detail product
             "*://*.amazon.com/*/dp/*",
             "*://*.amazon.ca/*/dp/*",
             "*://*.amazon.co.jp/*/dp/*",
@@ -135,6 +154,7 @@ browser.webRequest.onBeforeRequest.addListener(
 
 
 var remove_alisearchparams = build_query_param_remover(function (p) { return true });
+
 browser.webRequest.onBeforeRequest.addListener(
     remove_alisearchparams,
     {
@@ -162,10 +182,9 @@ function build_redirect_to_query_param(query_param_name) {
         const real_url_from_param = search_params.get(query_param_name);
         if (real_url_from_param) {
             //console.log('Redirecting to ' + real_url_from_param);
-            return {
-                redirectUrl: real_url_from_param
-            };
+            return { redirectUrl: real_url_from_param };
         }
+        return {redirectUrl: ''};
     }
     return redirect_to_get_param;
 }
@@ -215,12 +234,91 @@ browser.webRequest.onBeforeRequest.addListener(
 );
 
 urls_to_param_mappers.forEach(function(listenerConfig) {
-  const param_name = listenerConfig.param_name ? listenerConfig.param_name : 'url';
-  //console.log('Mapping ' + listenerConfig.urls + ' to param name ' + param_name);
-  browser.webRequest.onBeforeRequest.addListener(
-    build_redirect_to_query_param(param_name), {
-      urls: listenerConfig.urls,
-      types: ["main_frame"]
-    }, ["blocking"]
-  );
+    const param_name = listenerConfig.param_name ? listenerConfig.param_name : 'url';
+    // console.debug('Mapping ' + listenerConfig.urls + ' to param name ' + param_name);
+    browser.webRequest.onBeforeRequest.addListener(
+        build_redirect_to_query_param(param_name), {
+            urls: listenerConfig.urls,
+            types: ["main_frame"]
+        }, ["blocking"]
+    );
 });
+
+
+/*
+  additional menu item
+  ref: Mozilla tutorial
+  https://github.com/mdn/webextensions-examples/tree/master/menu-demo
+*/
+
+/*
+Called when the item has been created, or when creation failed due to an error.
+We'll just log success/failure here.
+*/
+function onCreated() {
+    if (browser.runtime.lastError) {
+        console.log(`Error: ${browser.runtime.lastError}`);
+    } else {
+        console.log("Item created successfully");
+    }
+}
+
+/*
+  Create all the context menu items.
+*/
+browser.menus.create({
+    id: "copy-link",
+    title: browser.i18n.getMessage("menuItemCopyAndClean"),
+    contexts: ["selection", "link"]
+}, onCreated);
+
+/*
+  The click event listener, where we perform the appropriate action given the
+  ID of the menu item that was clicked.
+*/
+browser.menus.onClicked.addListener((info, tab) => {
+    switch (info.menuItemId) {
+    case "copy-link":
+        copyToClipboard(info.linkUrl);
+        break;
+    }
+});
+
+/*
+  copy to clipboard
+  ref: https://github.com/def00111/copy-link-text
+*/
+
+var strToCopy = "";
+
+function copyToClipboard(text) {
+    // does not work inside frame
+    if ((document.activeElement instanceof HTMLIFrameElement) ||
+        (document.activeElement instanceof HTMLFrameElement)) {
+        // need to call it twice :/
+        document.activeElement.blur();
+        document.activeElement.blur();
+    }
+    strToCopy = text;
+    document.execCommand("copy");
+}
+
+
+function oncopy(event) {
+    if (strToCopy === "") {
+        return;
+    }
+
+    // Hide the event from the page to prevent tampering.
+    event.stopImmediatePropagation();
+
+    // Overwrite the clipboard content.
+    event.preventDefault();
+
+    // return {redirectUrl: new_url.href};
+    var sanitizedURL = clean_amazon(strToCopy);
+    event.clipboardData.setData("text", sanitizedURL['redirectUrl']);
+    strToCopy = "";
+}
+
+document.addEventListener("copy", oncopy, true);
