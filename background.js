@@ -15,7 +15,7 @@ function build_query_param_remover(shouldRemove) {
             if (needs_redirect) {
                 var new_url = new URL(url);
                 new_url.search = new_params.toString();
-                return {redirectUrl: new_url.href};
+                return { redirectUrl: new_url.href };
             }
         }
         return {};
