@@ -22,6 +22,13 @@ function build_query_param_remover(shouldRemove) {
     };
 }
 
+function wildcard_matches_any(patterns) {
+    var re_patterns = patterns.map(function(pat) { return pat.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&').replace("\\*", ".+"); });
+    return function(p) {
+        return re_patterns.some(function(pat) { return (new RegExp(pat)).test(p); });
+    };
+}
+
 // Filter out utm_* query parameters
 var clean_utm = build_query_param_remover(function(p) { return p.startsWith("utm_") });
 browser.webRequest.onBeforeRequest.addListener(
