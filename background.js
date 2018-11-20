@@ -74,11 +74,52 @@ function clean_utm(old_url) {
     return ret_val;
 }
 
+function build_query_param_remover(shouldRemove) {
+    return function (requestDetails) {
+        var url = new URL(requestDetails.url);
+        if (url.search.length > 0) {
+            var params = url.searchParams;
+            var new_params = new URLSearchParams(params);
+            var needs_redirect = false;
+            for (let p of params.keys()) {
+                if (shouldRemove(p)) {
+                    needs_redirect = true;
+                    new_params.delete(p);
+                    //console.log("nuked query param", p);
+                }
+            }
+            if (needs_redirect) {
+                var new_url = new URL(url);
+                new_url.search = new_params.toString();
+                return { redirectUrl: new_url.href };
+            }
+        }
+        return {};
+    };
+}
+
+function wildcard_matches_any(patterns) {
+    var re_patterns = patterns.map(function(pat) { return pat.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&').replace("\\*", ".+"); });
+    return function(p) {
+        return re_patterns.some(function(pat) { return (new RegExp(pat)).test(p); });
+    };
+}
+
+// Filter out utm_* query parameters
+var clean_utm = build_query_param_remover(function(p) { return p.startsWith("utm_") });
 browser.webRequest.onBeforeRequest.addListener(
     clean_utm_req,
     {urls: ["<all_urls>"],
      types:["main_frame"]},
     ["blocking"]
+);
+
+var clean_fbclid = build_query_param_remover(function(p) { return p == "fbclid" });
+browser.webRequest.onBeforeRequest.addListener(
+    clean_fbclid, {
+        urls: ["<all_urls>"],
+        types: ["main_frame"]
+    }, ["blocking"]
 );
 
 function clean_amazon_req(requestDetails) {
@@ -114,7 +155,7 @@ function clean_amazon(url) {
     }
 
     console.debug("final url is: " + new_url.href);
-    return {redirectUrl: new_url.href};
+    return { redirectUrl: new_url.href };
 }
 
 browser.webRequest.onBeforeRequest.addListener(
@@ -125,41 +166,45 @@ browser.webRequest.onBeforeRequest.addListener(
 );
 
 
-function remove_searchparams(requestDetails) {
-    var url = new URL(requestDetails.url);
-    console.debug('Entering remove_searchparams -- got url: ' + url);
-    if (url.search.length > 0) {
-        url.search = "";
-        // console.debug("Clean url to:", url.href);
-        return {redirectUrl: url.href};
-    }
-    return {redirectUrl: ''};
-}
+var remove_alisearchparams = build_query_param_remover(function (p) { return true });
 
 browser.webRequest.onBeforeRequest.addListener(
-    remove_searchparams,
-    {urls: aliexpress_regexp,
-     types: ["main_frame"]
+    remove_alisearchparams,
+    {
+        urls: [
+            "*://*.aliexpress.com/item/*.html*",
+            "*://*.aliexpress.com/store/product/*.html*",
+        ],
+        types: ["main_frame"]
     }, ["blocking"]
 );
 
-function build_redirect_to_query_param(query_param_name){
-    // console.debug('Build redirect with params: ' + query_param_name);
-    const redirect_to_get_param = function(requestDetails){
+var remove_fbcontentparam = build_query_param_remover(function (p) { return p == "efg" });
+browser.webRequest.onBeforeRequest.addListener(
+    remove_fbcontentparam,
+    {
+        urls: [
+            "*://*.fbcdn.net/*",
+        ], types: ["main_frame"]
+    }, ["blocking"]
+);
+
+function build_redirect_to_query_param(query_param_name) {
+    const redirect_to_get_param = function (requestDetails) {
         const search_params = new URLSearchParams(new URL(requestDetails.url).search);
         const real_url_from_param = search_params.get(query_param_name);
-        if (real_url_from_param){
-            // console.debug('Redirecting to ' + real_url_from_param);
-            return {redirectUrl: real_url_from_param};
+        if (real_url_from_param) {
+            //console.log('Redirecting to ' + real_url_from_param);
+            return { redirectUrl: real_url_from_param };
         }
-        return {redirectUrl: ''};
-    };
+        return { redirectUrl: '' };
+    }
     return redirect_to_get_param;
 }
 
 const urls_to_param_mappers = [
     {
-        urls: ["*://l.facebook.com/*"],
+        urls: ["*://l.facebook.com/*", "*://lm.facebook.com/*"],
         param_name: 'u'
     },
     {
@@ -167,8 +212,40 @@ const urls_to_param_mappers = [
     },
     {
         urls: ["*://steamcommunity.com/linkfilter/*"]
-    }
+    },
+    {
+        urls: ["*://l.instagram.com/*"],
+        param_name: 'u'
+    },
+    {
+        urls: ["*://t.umblr.com/*"],
+        param_name: 'z'
+    },
+    {
+        urls: ["*://sys.4chan.org/derefer?*"]
+    },
+    {
+        urls: ["*://www.youtube.com/redirect?*"],
+        param_name: 'q'
+    },
 ];
+
+// Google's outbound redirect is weird so it has its own function here
+function bypass_google_redirect(requestDetails) {
+  const search_params = new URLSearchParams(new URL(requestDetails.url).search);
+  var real_url_from_param = search_params.get("q") ? search_params.get("url") : null;
+  if (real_url_from_param) {
+    //console.log('Redirecting to ' + real_url_from_param);
+    return { redirectUrl: real_url_from_param };
+  }
+}
+
+browser.webRequest.onBeforeRequest.addListener(
+  bypass_google_redirect, {
+    urls: ["*://*.google.com/url*"],
+    types: ["main_frame"]
+  }, ["blocking"]
+);
 
 urls_to_param_mappers.forEach(function(listenerConfig) {
     const param_name = listenerConfig.param_name ? listenerConfig.param_name : 'url';
