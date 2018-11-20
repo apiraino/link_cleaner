@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use strict";
 
 function isEmptyObject (obj) {
@@ -98,6 +99,32 @@ function build_query_param_remover(shouldRemove) {
     };
 }
 
+=======
+function build_query_param_remover(shouldRemove) {
+    return function (requestDetails) {
+        var url = new URL(requestDetails.url);
+        if (url.search.length > 0) {
+            var params = url.searchParams;
+            var new_params = new URLSearchParams(params);
+            var needs_redirect = false;
+            for (let p of params.keys()) {
+                if (shouldRemove(p)) {
+                    needs_redirect = true;
+                    new_params.delete(p);
+                    //console.log("nuked query param", p);
+                }
+            }
+            if (needs_redirect) {
+                var new_url = new URL(url);
+                new_url.search = new_params.toString();
+                return { redirectUrl: new_url.href };
+            }
+        }
+        return {};
+    };
+}
+
+>>>>>>> master
 function wildcard_matches_any(patterns) {
     var re_patterns = patterns.map(function(pat) { return pat.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&').replace("\\*", ".+"); });
     return function(p) {
@@ -108,10 +135,25 @@ function wildcard_matches_any(patterns) {
 // Filter out utm_* query parameters
 var clean_utm = build_query_param_remover(function(p) { return p.startsWith("utm_") });
 browser.webRequest.onBeforeRequest.addListener(
+<<<<<<< HEAD
     clean_utm_req,
     {urls: ["<all_urls>"],
      types:["main_frame"]},
     ["blocking"]
+=======
+    clean_utm, {
+        urls: ["<all_urls>"],
+        types: ["main_frame"]
+    }, ["blocking"]
+);
+
+var clean_fbclid = build_query_param_remover(function(p) { return p == "fbclid" });
+browser.webRequest.onBeforeRequest.addListener(
+    clean_fbclid, {
+        urls: ["<all_urls>"],
+        types: ["main_frame"]
+    }, ["blocking"]
+>>>>>>> master
 );
 
 var clean_fbclid = build_query_param_remover(function(p) { return p == "fbclid" });
@@ -159,9 +201,86 @@ function clean_amazon(url) {
 }
 
 browser.webRequest.onBeforeRequest.addListener(
+<<<<<<< HEAD
     clean_amazon_req,
     {urls: amazon_regexp,
      types: ["main_frame"]
+=======
+    clean_amazon,
+    // note: "the wildcard may only appear at the start"
+    // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Match_patterns
+    {
+        urls: [
+            "*://*.amazon.com/d/*",
+            "*://*.amazon.ca/d/*",
+            "*://*.amazon.co.jp/d/*",
+            "*://*.amazon.co.uk/d/*",
+            "*://*.amazon.cn/d/*",
+            "*://*.amazon.de/d/*",
+            "*://*.amazon.fr/d/*",
+            "*://*.amazon.in/d/*",
+            "*://*.amazon.it/d/*",
+            "*://*.amazon.com.mx/d/*",
+            "*://*.amazon.com.au/d/*",
+            "*://*.amazon.com.br/d/*",
+
+            // dp = detail product
+            "*://*.amazon.com/dp/*",
+            "*://*.amazon.ca/dp/*",
+            "*://*.amazon.co.jp/dp/*",
+            "*://*.amazon.co.uk/dp/*",
+            "*://*.amazon.cn/dp/*",
+            "*://*.amazon.de/dp/*",
+            "*://*.amazon.fr/dp/*",
+            "*://*.amazon.in/dp/*",
+            "*://*.amazon.it/dp/*",
+            "*://*.amazon.com.mx/dp/*",
+            "*://*.amazon.com.au/dp/*",
+            "*://*.amazon.com.br/dp/*",
+
+            // gp = General Product
+            "*://*.amazon.com/gp/aw/d/*",
+            "*://*.amazon.ca/gp/aw/d/*",
+            "*://*.amazon.co.jp/gp/aw/d/*",
+            "*://*.amazon.co.uk/gp/aw/d/*",
+            "*://*.amazon.cn/gp/aw/d/*",
+            "*://*.amazon.de/gp/aw/d/*",
+            "*://*.amazon.fr/gp/aw/d/*",
+            "*://*.amazon.in/gp/aw/d/*",
+            "*://*.amazon.it/gp/aw/d/*",
+            "*://*.amazon.com.mx/gp/aw/d/*",
+            "*://*.amazon.com.au/gp/aw/d/*",
+            "*://*.amazon.com.br/gp/aw/d/*",
+
+            // SEO friendly descriptiion + detail product
+            "*://*.amazon.com/*/dp/*",
+            "*://*.amazon.ca/*/dp/*",
+            "*://*.amazon.co.jp/*/dp/*",
+            "*://*.amazon.co.uk/*/dp/*",
+            "*://*.amazon.cn/*/dp/*",
+            "*://*.amazon.de/*/dp/*",
+            "*://*.amazon.fr/*/dp/*",
+            "*://*.amazon.in/*/dp/*",
+            "*://*.amazon.it/*/dp/*",
+            "*://*.amazon.com.mx/*/dp/*",
+            "*://*.amazon.com.au/*/dp/*",
+            "*://*.amazon.com.br/*/dp/*",
+
+            "*://*.amazon.com/gp/product/*",
+            "*://*.amazon.ca/gp/product/*",
+            "*://*.amazon.co.jp/gp/product/*",
+            "*://*.amazon.co.uk/gp/product/*",
+            "*://*.amazon.cn/gp/product/*",
+            "*://*.amazon.de/gp/product/*",
+            "*://*.amazon.fr/gp/product/*",
+            "*://*.amazon.in/gp/product/*",
+            "*://*.amazon.it/gp/product/*",
+            "*://*.amazon.com.mx/gp/product/*",
+            "*://*.amazon.com.au/gp/product/*",
+            "*://*.amazon.com.br/gp/product/*",
+        ],
+        types: ["main_frame"]
+>>>>>>> master
     }, ["blocking"]
 );
 
@@ -239,7 +358,10 @@ function bypass_google_redirect(requestDetails) {
     return { redirectUrl: real_url_from_param };
   }
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 browser.webRequest.onBeforeRequest.addListener(
   bypass_google_redirect, {
     urls: ["*://*.google.com/url*"],
