@@ -146,14 +146,6 @@ browser.webRequest.onBeforeRequest.addListener(
     }, ["blocking"]
 );
 
-var clean_fbclid = build_query_param_remover(function(p) { return p == "fbclid" });
-browser.webRequest.onBeforeRequest.addListener(
-    clean_fbclid, {
-        urls: ["<all_urls>"],
-        types: ["main_frame"]
-    }, ["blocking"]
-);
-
 function clean_amazon_req(requestDetails) {
     var url = requestDetails.url;
     return clean_amazon(url);
