@@ -170,7 +170,7 @@ var remove_alisearchparams = build_query_param_remover(function (p) { return tru
 browser.webRequest.onBeforeRequest.addListener(
     remove_alisearchparams,
     {
-        aliexpress_regexp,
+        urls: aliexpress_regexp,
         types: ["main_frame"]
     }, ["blocking"]
 );
