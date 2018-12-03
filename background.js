@@ -97,7 +97,8 @@ browser.webRequest.onBeforeRequest.addListener(
     {
         urls: ["<all_urls>"],
         types: ["main_frame"]
-    }, ["blocking"]
+    },
+    ["blocking"]
 );
 
 function clean_amazon_req(requestDetails) {
@@ -140,7 +141,8 @@ browser.webRequest.onBeforeRequest.addListener(
     clean_amazon_req,
     {urls: amazon_regexp,
      types: ["main_frame"]
-    }, ["blocking"]
+    },
+    ["blocking"]
 );
 
 
@@ -150,7 +152,8 @@ browser.webRequest.onBeforeRequest.addListener(
     {
         urls: aliexpress_regexp,
         types: ["main_frame"]
-    }, ["blocking"]
+    },
+    ["blocking"]
 );
 
 var remove_fbcontentparam = build_query_param_remover(f_match_fbcontent);
@@ -159,7 +162,8 @@ browser.webRequest.onBeforeRequest.addListener(
     {
         urls: fbcontent_regexp,
         types: ["main_frame"]
-    }, ["blocking"]
+    },
+    ["blocking"]
 );
 
 function build_redirect_to_query_param(query_param_name) {
@@ -214,19 +218,23 @@ function bypass_google_redirect(requestDetails) {
 }
 
 browser.webRequest.onBeforeRequest.addListener(
-  bypass_google_redirect, {
-    urls: ["*://*.google.com/url*"],
-    types: ["main_frame"]
-  }, ["blocking"]
+    bypass_google_redirect,
+    {
+        urls: ["*://*.google.com/url*"],
+        types: ["main_frame"]
+    },
+    ["blocking"]
 );
 
 urls_to_param_mappers.forEach(function(listenerConfig) {
     const param_name = listenerConfig.param_name ? listenerConfig.param_name : 'url';
     // console.debug('Mapping ' + listenerConfig.urls + ' to param name ' + param_name);
     browser.webRequest.onBeforeRequest.addListener(
-        build_redirect_to_query_param(param_name), {
+        build_redirect_to_query_param(param_name),
+        {
             urls: listenerConfig.urls,
             types: ["main_frame"]
-        }, ["blocking"]
+        },
+        ["blocking"]
     );
 });
