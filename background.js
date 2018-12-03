@@ -81,17 +81,20 @@ function wildcard_matches_any(patterns) {
 }
 
 // Filter out utm_* query parameters
-var clean_utm = build_query_param_remover(function(p) { return p.startsWith("utm_") });
+var clean_utm_req = build_query_param_remover(f_match_utm);
 browser.webRequest.onBeforeRequest.addListener(
     clean_utm_req,
-    {urls: ["<all_urls>"],
-     types:["main_frame"]},
+    {
+        urls: ["<all_urls>"],
+        types:["main_frame"]
+    },
     ["blocking"]
 );
 
-var clean_fbclid = build_query_param_remover(function(p) { return p == "fbclid" });
+var clean_fbclid = build_query_param_remover(f_match_fbclid);
 browser.webRequest.onBeforeRequest.addListener(
-    clean_fbclid, {
+    clean_fbclid,
+    {
         urls: ["<all_urls>"],
         types: ["main_frame"]
     }, ["blocking"]
@@ -141,7 +144,7 @@ browser.webRequest.onBeforeRequest.addListener(
 );
 
 
-var remove_alisearchparams = build_query_param_remover(function (p) { return true });
+var remove_alisearchparams = build_query_param_remover(f_match_all);
 browser.webRequest.onBeforeRequest.addListener(
     remove_alisearchparams,
     {
@@ -150,13 +153,12 @@ browser.webRequest.onBeforeRequest.addListener(
     }, ["blocking"]
 );
 
-var remove_fbcontentparam = build_query_param_remover(function (p) { return p == "efg" });
+var remove_fbcontentparam = build_query_param_remover(f_match_fbcontent);
 browser.webRequest.onBeforeRequest.addListener(
     remove_fbcontentparam,
     {
-        urls: [
-            "*://*.fbcdn.net/*",
-        ], types: ["main_frame"]
+        urls: fbcontent_regexp,
+        types: ["main_frame"]
     }, ["blocking"]
 );
 
@@ -169,7 +171,7 @@ function build_redirect_to_query_param(query_param_name) {
             return { redirectUrl: real_url_from_param };
         }
         return { redirectUrl: '' };
-    }
+    };
     return redirect_to_get_param;
 }
 

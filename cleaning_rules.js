@@ -80,3 +80,18 @@ var aliexpress_regexp = [
 var amp_regexp = [
     "*://*/amp/*",
 ];
+
+var all_urls = [
+    "*://*"
+];
+
+var fbcontent_regexp = [
+    "*://*.fbcdn.net/*",
+];
+
+// query params matching
+
+var f_match_utm = function (p) { return p.startsWith('utm_'); };
+var f_match_all = function (p) { return true; };
+var f_match_fbclid = function(p) { return p == "fbclid"; };
+var f_match_fbcontent = function (p) { return p == "efg"; };
