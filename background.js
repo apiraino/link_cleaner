@@ -25,17 +25,9 @@ function clean_amp(url) {
     return new_url;
 }
 
-// Filter out utm_* query parameters
-
-// callback triggered by new tab
-function clean_utm_req(requestDetails) {
-    var url = requestDetails.url;
-    return clean_utm(url);
-}
-
-function clean_utm(old_url) {
-    var url = new URL(old_url);
-    console.debug("[clean_utm] got " + url);
+function link_cleaner(orig_url, shouldRemove) {
+    console.debug("[link_cleaner] got " + orig_url);
+    var url = new URL(orig_url);
     var ret_val = {'redirectUrl': ''};
 
     if (url.search.length > 0) {
@@ -43,14 +35,15 @@ function clean_utm(old_url) {
         var new_params = new URLSearchParams(params);
         var needs_redirect = false;
         for (let p of params.keys()) {
-            if (p.startsWith("utm_")) {
+            if (shouldRemove(p)) {
                 needs_redirect = true;
                 new_params.delete(p);
+                console.debug("[link_cleaner] nuked query param: ", p);
             }
         }
 
         if (needs_redirect) {
-            console.debug("[clean_utm] needs redirect!!");
+            console.debug("[link_cleaner] needs redirect!!");
             url.search = new_params.toString();
             ret_val = {redirectUrl: url.href};
         }
@@ -70,31 +63,13 @@ function clean_utm(old_url) {
 
     }
 
-    console.debug("[clean_utm] returning " , ret_val['redirectUrl']);
+    console.debug("[link_cleaner] returning ", ret_val['redirectUrl']);
     return ret_val;
-}
+};
 
 function build_query_param_remover(shouldRemove) {
-    return function (requestDetails) {
-        var url = new URL(requestDetails.url);
-        if (url.search.length > 0) {
-            var params = url.searchParams;
-            var new_params = new URLSearchParams(params);
-            var needs_redirect = false;
-            for (let p of params.keys()) {
-                if (shouldRemove(p)) {
-                    needs_redirect = true;
-                    new_params.delete(p);
-                    //console.log("nuked query param", p);
-                }
-            }
-            if (needs_redirect) {
-                var new_url = new URL(url);
-                new_url.search = new_params.toString();
-                return { redirectUrl: new_url.href };
-            }
-        }
-        return {};
+    return function(requestDetails) {
+        return link_cleaner(requestDetails.url, shouldRemove);
     };
 }
 
