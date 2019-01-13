@@ -91,7 +91,7 @@ var fbcontent_regexp = [
 
 // query params matching
 
-var f_match_utm = function (p) { return p.startsWith('utm_'); };
-var f_match_all = function (p) { return true; };
-var f_match_fbclid = function(p) { return p == "fbclid"; };
-var f_match_fbcontent = function (p) { return p == "efg"; };
+var f_match_utm = p => p.startsWith("utm_");
+var f_match_all = p => true;
+var f_match_fbclid = p => p == "fbclid";
+var f_match_fbcontent = p => p == "efg";
