@@ -10,7 +10,7 @@
     },
 
     "menuItemCopyAndClean": {
-        "message": "Copy and sanitize link",
+        "message": "Copy clean link",
         "description": "Title of context menu item."
     }
 }
