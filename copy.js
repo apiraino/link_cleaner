@@ -8,10 +8,19 @@
 
 var global_link_text = '';
 
-function maybe_clean (orig_url, regexp, f) {
+function glob_to_regexp (pattern) {
+    // https://stackoverflow.com/a/24558913
+    return new RegExp(pattern
+                      .replace(/([.?+^$[\]\\(){}|\/-])/g, "\\$1")
+                      .replace(/\*/g, '.*'));
+}
+
+// clean query params
+function maybe_clean (orig_url, urls, f) {
     var res = '';
-    for (var pat in regexp) {
-        if (new RegExp(pat).test(orig_url)) {
+    for (var idx = 0; idx < urls.length; idx++) {
+        var patt = glob_to_regexp(urls[idx]);
+        if (patt.test(orig_url)) {
             res = link_cleaner(orig_url, f)['redirectUrl'];
             break;
         }
@@ -22,21 +31,14 @@ function maybe_clean (orig_url, regexp, f) {
 function cleaner_entrypoint (orig_link) {
 
     // query params matching
+    // TODO: profile && improve perfs here
 
     var new_link = maybe_clean(orig_link, all_urls, f_match_utm);
-    console.debug("[copytoclipboard] link cleaned 1: " + new_link);
-
     new_link = maybe_clean(new_link, aliexpress_regexp, f_match_all);
-    console.debug("[copytoclipboard] link cleaned 2: " + new_link);
-
     new_link = maybe_clean(new_link, all_urls, f_match_fbclid);
-    console.debug("[copytoclipboard] link cleaned 3: " + new_link);
-
     new_link = maybe_clean(new_link, fbcontent_regexp, f_match_fbcontent);
-    console.debug("[copytoclipboard] link cleaned 4: " + new_link);
 
-    // TODO: add URL matching (amazon, google, ...)
-
+    console.debug("[copytoclipboard] link cleaned: " + new_link);
     return new_link;
 }
 
