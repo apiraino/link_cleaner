@@ -16,12 +16,18 @@ description: >
 
 background:
   scripts:
+  - prefs.js
+  - cleaning_rules.js
+  - menu.js
   - background.js
+  - copy.js
 
 permissions:
 - '<all_urls>'
 - webRequest
 - webRequestBlocking
 - contextMenus
+- menus
+- storage
 
 default_locale: 'en'

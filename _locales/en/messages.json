@@ -12,5 +12,20 @@
     "menuItemCopyAndClean": {
         "message": "Copy clean link",
         "description": "Title of context menu item."
+    },
+
+    "settingsTitle": {
+        "message": "Settings:",
+        "description": "Whether to clean AMP links too"
+    },
+
+    "settingsSanitizeAMPLabel": {
+        "message": "Clean AMP links",
+        "description": "Whether to clean AMP links too"
+    },
+
+    "settingsSavePrefs": {
+        "message": "Save Preferences",
+        "description": "Says it all ..."
     }
 }

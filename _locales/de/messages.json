@@ -5,12 +5,30 @@
     },
 
     "extensionDescription": {
-        "message": "Browser Add-on um URLs zu reinigen, bevor sie besucht werden.",
+        "message": "Browser Erweiterung um URLs zu anonymisieren, bevor sie besucht werden.",
         "description": "Description of the extension."
     },
 
     "menuItemCopyAndClean": {
         "message": "Link-Addresse kopieren und reinigen",
         "description": "Title of context menu item."
+    },
+
+    "settingsTitle": {
+        "message": "Einstellungen:",
+        "description": "Whether to clean AMP links too"
+    },
+
+    "settingsSanitizeAMPLabel": {
+        "message": "AMP URLs reinigen",
+        "description": "Whether to clean AMP links too"
+    },
+
+    "settingsSavePrefs": {
+        "message": "Speichern",
+        "description": "Speichern"
     }
+
+
+
 }
