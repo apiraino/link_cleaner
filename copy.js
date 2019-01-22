@@ -28,6 +28,19 @@ function maybe_clean (orig_url, urls, f) {
     return (res != '' ? res : orig_url);
 }
 
+// clean URL
+function maybe_clean_url (orig_url, urls, f) {
+    var res = '';
+    for (var idx = 0; idx < urls.length; idx++) {
+        var patt = glob_to_regexp(urls[idx]);
+        if (patt.test(orig_url)) {
+            res = f(orig_url)['redirectUrl'];
+            break;
+        }
+    }
+    return (res != '' ? res : orig_url);
+}
+
 function cleaner_entrypoint (orig_link) {
 
     // query params matching
@@ -37,6 +50,9 @@ function cleaner_entrypoint (orig_link) {
     new_link = maybe_clean(new_link, aliexpress_regexp, f_match_all);
     new_link = maybe_clean(new_link, all_urls, f_match_fbclid);
     new_link = maybe_clean(new_link, fbcontent_regexp, f_match_fbcontent);
+
+    // clean URL
+    new_link = maybe_clean_url(new_link, ["amazon"], clean_amazon);
 
     console.debug("[copytoclipboard] link cleaned: " + new_link);
     return new_link;
