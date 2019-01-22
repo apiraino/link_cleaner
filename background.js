@@ -25,6 +25,7 @@ function clean_amp(url) {
     return new_url;
 }
 
+// Clean URL query params only
 function link_cleaner(orig_url, shouldRemove) {
     console.debug("[link_cleaner] got " + orig_url);
     var url = new URL(orig_url);
@@ -106,6 +107,7 @@ function clean_amazon_req(requestDetails) {
     return clean_amazon(url);
 }
 
+// Rewrites amazon product URLs
 function clean_amazon(url) {
     // console.debug('Entering clean_amazon -- got url: ' + url);
     var new_url = document.createElement('a');
@@ -113,7 +115,8 @@ function clean_amazon(url) {
     let slash_ref_index = url.indexOf("/ref=", slash_d_index + 2);
     if (slash_ref_index > 0 && url.length > slash_ref_index + 1) {
         new_url.href = url.substring(0, slash_ref_index + 1);
-        if (new_url.href != url) {   // try to avoid infinite redirect loops that might arise
+        if (new_url.href != url) {
+            // try to avoid infinite redirect loops that might arise
             console.warn('Is something strange happening?');
             console.debug("Redirecting from: ", url, "\nto: ", new_url.href);
             // TODO: return {redirectUrl: new_url.href};
