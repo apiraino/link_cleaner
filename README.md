@@ -61,6 +61,8 @@ Notice that since the profile is created at runtime, preferences saved by the ex
 
 The profile should be located in `/tmp`.
 
+Enable extension debugging from `about:debugging` to see logging.
+
 # Build extension for publishing
 ``` bash
 # not signed, local installation
