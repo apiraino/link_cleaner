@@ -1,3 +1,5 @@
+**2019 UPDATE:** This fork would like to keep the project alive. We have a [roadmap](https://github.com/apiraino/link_cleaner/wiki) with a list of items (features and bugs) that can be picked for contribution.
+
 # Link Cleaner
 Find and install this extension on the [Mozilla Add-ons website](
 https://addons.mozilla.org/en-US/firefox/addon/link-cleaner/).
@@ -53,9 +55,7 @@ third-party affiliate program.
 
 You can use the `web-ext` package to keep things easier (see [documentation](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/web-ext_command_reference#web-ext_sign) and [how to install](https://github.com/mozilla/web-ext)).
 
-Install Use the provided script `web-ext-run.sh` to launch Firefox with a
-dedicated profile. The add-ons is already installed and the
-browser will open on the test HTML page.
+Install Use the provided script `web-ext-run.sh` to launch Firefox with a dedicated profile. The add-ons is already installed and the browser will open on the test HTML page.
 
 Notice that since the profile is created at runtime, preferences saved by the extension will be lost once the browser will be closed (unless the parameter `--keep-profile-changes` is added to the `web-ext-run.sh` script.
 
