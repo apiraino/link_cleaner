@@ -1,5 +1,5 @@
 {
-    "author": "Erwan Ameil",
+    "author": "apiraino",
     "background": {
         "scripts": [
             "prefs.js",
@@ -9,13 +9,13 @@
             "copy.js"
         ]
     },
-    "description": "Clean URLs that are about to be visited: - removes utm_* parameters - on item pages of aliexpress and amazon, removes tracking parameters - skip redirect pages of facebook, steam and reddit (directly go to the url being redirected to, and never hit their outgoing redirect tracking)\nYou can now visit and bookmark clean links instead of the long, tracking-enabled ones!\n",
-    "homepage_url": "https://github.com/idlewan/link_cleaner",
+    "description": "Clean URLs before opening a link, removes trackers, rewrites redirects pages such as of amazon, facebook, steam, reddit (more to come!) and AMP urls.",
+    "homepage_url": "https://github.com/apiraino/link_cleaner",
     "manifest_version": 2,
-    "name": "Link Cleaner",
+    "name": "Link Cleaner+",
     "applications": {
         "gecko": {
-            "id": "link_cleaner@github.com"
+            "id": "{fc61c7db-fe1a-4bf8-a07e-a483a0ba2682}"
         }
     },
     "permissions": [
@@ -29,6 +29,12 @@
     "options_ui": {
         "page": "options/options.html"
     },
-    "version": "1.5",
-    "default_locale": "en"
+    "version": "1.6",
+    "default_locale": "en",
+    "icons": {
+        "48": "assets/icon.png",
+        "96": "assets/icon@2x.png"
+    }
+
+
 }
