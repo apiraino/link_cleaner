@@ -71,7 +71,7 @@ Enable extension debugging from `about:debugging` to see logging.
 ``` bash
 # not signed, local installation (load from about:debugging#/runtime/this-firefox)
 $ rm -f ~/tmp/link_cleaner_x.y.zip
-$ zip -r -FS ~/tmp/link_cleaner_x.y.xpi manifest.json *.js _locales/ options/
+$ zip -r -FS ~/tmp/link_cleaner_x.y.xpi manifest.json *.js _locales/ options/ assets/icon*
 ```
 
 ``` bash
