@@ -1,10 +1,10 @@
 # ![Link Cleaner+](/assets/web-link-cleaned-thumb.png) Link Cleaner+
 
-This project is a fork of [Link Cleaner](https://github.com/idlewan/link_cleaner), a Firefox extension to sanitize links removing all tracking parameters. This fork would like to keep the original project alive. We have a [roadmap](https://github.com/apiraino/link_cleaner/wiki) with a list of items (features and bugs) open up for grabs! Contributions are welcome!
+This project is a fork of [Link Cleaner](https://github.com/idlewan/link_cleaner), a Firefox extension to sanitize links removing all tracking parameters. This fork would like to keep the original project alive. We have a [roadmap](https://github.com/apiraino/link_cleaner/wiki) and a list of items (features and bugs) open up for grabs. Contributions are welcome!
 
 ## Why "Link Cleaner+"
 
-The original project seems to have stalled, issues and pull requests don't get through. We will try to pick where the original project left and move forward. You can find and install Link Cleaner+ on the [Mozilla Add-ons website](https://addons.mozilla.org/en-US/firefox/addon/link-cleaner-plus/).
+The original project seems to have stalled, issues and pull requests don't get through. We will try picking up where the original project left and move forward. You can install Link Cleaner+ from the [Mozilla Add-ons website](https://addons.mozilla.org/en-US/firefox/addon/link-cleaner-plus/).
 
 ## How does it work?
 
@@ -43,11 +43,11 @@ Link Cleaner+ is a work in progress, [contributions and suggestions](https://git
 | Sanitized | `https://getfedora.org/`                                                                                                                                                                                         |
 
 
-For a full list of test cases, have a look at the included `test_urls.html` file.
+For a full list of test cases, have a look at the included [test_urls.html](https://github.com/apiraino/link_cleaner/blob/master/test_urls.html) file.
 
 # Comparison to other add-ons
 
-Unlike other legacy add-ons, Link Cleaner+ doesn't inject JavaScript into pages to change links. Instead, it listens to main url requests and changes them (if needed to remove redirects or tracking.
+Unlike other legacy add-ons, Link Cleaner+ doesn't inject JavaScript into pages to change links. Instead, it listens to main url requests and changes them (if needed) to remove redirects or tracking.
 
 That means it's doing less unneeded work and consumes less resources (memory and CPU).
 

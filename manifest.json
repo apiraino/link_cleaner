@@ -9,7 +9,7 @@
             "copy.js"
         ]
     },
-    "description": "Clean URLs before opening a link, removes trackers, rewrites redirects pages such as of amazon, facebook, steam, reddit (more to come!) and AMP urls.",
+    "description": "Clean URLs before opening a link, removes trackers, rewrites redirects pages such as of Amazon, Facebook, Steam, Reddit (more to come!) and AMP urls.",
     "homepage_url": "https://github.com/apiraino/link_cleaner",
     "manifest_version": 2,
     "name": "Link Cleaner+",
