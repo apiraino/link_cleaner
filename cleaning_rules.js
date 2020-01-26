@@ -89,6 +89,10 @@ var fbcontent_regexp = [
     "*://*.fbcdn.net/*",
 ];
 
+var instagram_regexp = [
+    "*://*.instagram.com/*",
+];
+
 // query params matching
 
 var f_match_utm = p => p.startsWith("utm_");

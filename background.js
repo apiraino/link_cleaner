@@ -108,7 +108,7 @@ var clean_igshid = build_query_param_remover(f_match_igshid);
 browser.webRequest.onBeforeRequest.addListener(
     clean_igshid,
     {
-        urls: ["<all_urls>"],
+        urls: instagram_regexp,
         types: ["main_frame"]
     },
     ["blocking"]
