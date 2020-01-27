@@ -89,9 +89,14 @@ var fbcontent_regexp = [
     "*://*.fbcdn.net/*",
 ];
 
+var instagram_regexp = [
+    "*://*.instagram.com/*",
+];
+
 // query params matching
 
 var f_match_utm = p => p.startsWith("utm_");
 var f_match_all = p => true;
 var f_match_fbclid = p => p == "fbclid";
+var f_match_igshid = p => p == "igshid";
 var f_match_fbcontent = p => p == "efg";

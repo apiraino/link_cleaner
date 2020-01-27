@@ -92,11 +92,23 @@ browser.webRequest.onBeforeRequest.addListener(
     ["blocking"]
 );
 
+// Filter out Facebook Click Identifier query parameters
 var clean_fbclid = build_query_param_remover(f_match_fbclid);
 browser.webRequest.onBeforeRequest.addListener(
     clean_fbclid,
     {
         urls: ["<all_urls>"],
+        types: ["main_frame"]
+    },
+    ["blocking"]
+);
+
+// Filter out Instagram Share Identifier query parameters
+var clean_igshid = build_query_param_remover(f_match_igshid);
+browser.webRequest.onBeforeRequest.addListener(
+    clean_igshid,
+    {
+        urls: instagram_regexp,
         types: ["main_frame"]
     },
     ["blocking"]
