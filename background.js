@@ -220,6 +220,9 @@ const urls_to_param_mappers = [
         urls: ["*://www.youtube.com/redirect?*"],
         param_name: 'q'
     },
+    {
+        urls: ["*://slack-redir.net/link?*"]
+    },
 ];
 
 // Google's outbound redirect is weird so it has its own function here
