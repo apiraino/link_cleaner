@@ -51,9 +51,11 @@ Unlike other legacy add-ons, Link Cleaner+ doesn't inject JavaScript into pages 
 
 That means it's doing less unneeded work and consumes less resources (memory and CPU).
 
-# Notes
+# Warnings
 
-Cleaning Amazon URLs will break any affiliation program. Use the usual "copy link location" shortcut if you want to support the third-party affiliate program.
+- Cleaning Amazon URLs will break any affiliation program. Use the usual "copy link location" shortcut if you want to support the third-party affiliate program.
+
+- Cleaning Slack redirect URLs could potentially leak company's sensitive links, see [the documentation](https://slack.com/intl/en-de/help/articles/115004155306#click-shared-links-with-caution).
 
 # Test the extension locally
 
