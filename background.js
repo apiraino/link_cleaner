@@ -247,9 +247,42 @@ browser.webRequest.onBeforeRequest.addListener(
     ["blocking"]
 );
 
+// FIXME: change the format in localStorage to directly retrieve the key
+// ex. get('clean_amp_links')
+const rewriteRedditUrl = requestDetails => browser.storage.local.get()
+      .then(items => {
+          // FIXME: this is ugly
+          var restoredSettingsKeys = {};
+          for(let i = 0; i < items.dataTypes.length; i++) {
+              var obj = items.dataTypes[i];
+              for (let key of Object.keys(obj)) {
+                  restoredSettingsKeys[key] = obj[key];
+              }
+          }
+          if (restoredSettingsKeys['redirect_reddit_nojs'] === true) {
+              console.debug("Reddit redirect ACTIVE");
+              return ({ redirectUrl: requestDetails.url.replace('www', 'old') });
+          }
+          return ({ redirectUrl: '' });
+      })
+      .catch(error => {
+          console.log(`Error: ${error}`);
+          return ({ redirectUrl: '' });
+      });
+
+// Reddit redirect
+browser.webRequest.onBeforeRequest.addListener(
+    rewriteRedditUrl,
+    {
+        urls: ["*://www.reddit.com/*"],
+        types: ["main_frame"]
+    },
+    ["blocking"]
+);
+
 urls_to_param_mappers.forEach(function(listenerConfig) {
     const param_name = listenerConfig.param_name ? listenerConfig.param_name : 'url';
-    // console.debug('Mapping ' + listenerConfig.urls + ' to param name ' + param_name);
+    console.debug('Mapping ' + listenerConfig.urls + ' to param name ' + param_name);
     browser.webRequest.onBeforeRequest.addListener(
         build_redirect_to_query_param(param_name),
         {

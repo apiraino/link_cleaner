@@ -1,5 +1,6 @@
 var prefs = {
-    'clean_amp_links': false
+    'clean_amp_links': false,
+    'redirect_reddit_nojs': false
 };
 
 /*
@@ -71,22 +72,33 @@ function notifyExtension(e) {
 */
 function updateUI(restoredSettings) {
 
-    var data = restoredSettings.dataTypes[0];
-
     // Localize UI
     var settings_title = browser.i18n.getMessage('settingsTitle');
     var clean_amp_links_lbl = browser.i18n.getMessage('settingsSanitizeAMPLabel');
+    var redirect_reddit_nojs_lbl = browser.i18n.getMessage('settingsRedirectRedditNoJSLabel');
     var save_prefs_lbl = browser.i18n.getMessage('settingsSavePrefs');
     document.querySelector("#clean-amp-links-lbl").innerText = clean_amp_links_lbl;
+    document.querySelector("#redirect-reddit-nojs-lbl").innerText = redirect_reddit_nojs_lbl;
     document.querySelector("#settings-title").innerText = settings_title;
     document.querySelector("#save-button").value = save_prefs_lbl;
 
     // populate options
-    const checkboxes = document.querySelectorAll(".data-types [type=checkbox]");
+    var checkboxes = document.querySelectorAll(".data-types [type=checkbox]");
+
+    // put all defaults in a sane structure (ugh)
+    var restoredSettingsKeys = {};
+    for(let i = 0; i < restoredSettings.dataTypes.length; i++) {
+        var obj = restoredSettings.dataTypes[i];
+        for (let key of Object.keys(obj)) {
+            restoredSettingsKeys[key] = obj[key];
+        }
+    }
+
+    // parse the options and updates settings
     for (let item of checkboxes) {
         var need_key = item.getAttribute("data-type");
-        if (need_key in data) {
-            item.checked = data[need_key];
+        if (need_key in restoredSettingsKeys) {
+            item.checked = restoredSettingsKeys[need_key];
         } else {
             item.checked = false;
         }
