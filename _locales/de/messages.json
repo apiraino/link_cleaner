@@ -24,7 +24,12 @@
         "description": "Whether to clean AMP links too"
     },
 
-    "settingsSavePrefs": {
+    "settingsRedirectRedditNoJSLabel": {
+        "message": "Auf Reddit nojs umleiten\n(www.reddit.com -> old.reddit.com)",
+        "description": "Whether to redirect to the no-js friendly Reddit"
+    },
+
+    "page": {
         "message": "Speichern",
         "description": "Speichern"
     }
