@@ -221,8 +221,11 @@ const urls_to_param_mappers = [
         param_name: 'q'
     },
     {
-        urls: ["*://slack-redir.net/link?*"]
+        urls: ["*://slack-redir.net/link"]
     },
+    {
+        urls: ["*://x.chip.de/"]
+    }
 ];
 
 // Google's outbound redirect is weird so it has its own function here
