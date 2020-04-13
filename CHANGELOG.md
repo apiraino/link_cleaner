@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0] - 2020-04-13
+### Added
+- Clean chip.de links
+- New option: redirect Reddit to the no-javascript site
+- Clean Slack redirects
+- Clean Instagram redirects
+
 ## [1.6.0] - 2019-08-18
 ### Added
 - Context right-click menu to copy a cleaned link into the clipboard
