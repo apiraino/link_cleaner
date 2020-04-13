@@ -9,8 +9,11 @@
 /*
   Default settings. If there is nothing in storage, use these values.
 */
-var defaultSettings = {
-    dataTypes: [{"clean_amp_links": false}]
+const defaultSettings = {
+    dataTypes: [
+        {"clean_amp_links": false},
+        {"redirect_reddit_nojs": false}
+    ]
 };
 
 /*
@@ -18,7 +21,8 @@ var defaultSettings = {
   These values are used by the extension
 */
 var settings = {
-    'clean_amp_links': false
+    'clean_amp_links': false,
+    'redirect_reddit_nojs': false,
 };
 
 /*
@@ -41,20 +45,18 @@ function onError(e) {
 */
 function checkStoredSettings(storedSettings) {
     console.debug("[checkstoredsettings] storedsettings: ");
-    console.debug(storedSettings);
+    // console.debug(storedSettings);
     if (!storedSettings.dataTypes) {
         console.debug("[checkStoredSettings] Could NOT read settings, will set defaults");
         browser.storage.local.set(defaultSettings).then(function(res){
             console.debug("[checkStoredSettings] defaults set");
         }, onError);
-        // update_settings(defaultSettings);
     } else {
         console.debug("[checkStoredSettings] Settings successfully loaded");
-        update_settings(storedSettings.dataTypes[0]);
+        update_settings(storedSettings.dataTypes);
     }
     // console.debug("[checkStoredSettings] new_settings: ");
     // console.debug(settings);
-
     // check_storage();
 }
 
@@ -68,7 +70,7 @@ function check_storage() {
 
 // also invoked by the notification message
 function update_settings(new_settings) {
-    console.debug("[update_settings] updating with: ", new_settings);
+    // console.debug("[update_settings] updating with: ", new_settings);
     settings = new_settings;
 }
 
