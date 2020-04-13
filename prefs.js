@@ -70,7 +70,7 @@ function check_storage() {
 
 // also invoked by the notification message
 function update_settings(new_settings) {
-    console.debug("[update_settings] updating with: ", new_settings);
+    // console.debug("[update_settings] updating with: ", new_settings);
     settings = new_settings;
 }
 

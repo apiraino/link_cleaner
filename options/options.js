@@ -34,7 +34,7 @@ function storeSettings() {
 
 function setItem(items) {
     console.debug("Item set OK");
-    console.debug(items);
+    // console.debug(items);
 }
 
 function onError(error) {

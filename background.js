@@ -27,7 +27,7 @@ function clean_amp(url) {
 
 // Clean URL query params only
 function link_cleaner(orig_url, shouldRemove) {
-    console.debug("[link_cleaner] got " + orig_url);
+    // console.debug("[link_cleaner] got " + orig_url + " and " + shouldRemove);
     var url = new URL(orig_url);
     var ret_val = {'redirectUrl': ''};
 
@@ -58,13 +58,11 @@ function link_cleaner(orig_url, shouldRemove) {
             if (cleaned_url.href !== url.href) {
                 ret_val = {redirectUrl: cleaned_url.href};
             }
-        } else {
-            console.debug("AMP cleaning DISABLED");
         }
 
     }
 
-    console.debug("[link_cleaner] returning ", ret_val['redirectUrl']);
+    // console.debug("[link_cleaner] returning ", ret_val['redirectUrl']);
     return ret_val;
 };
 
@@ -194,6 +192,7 @@ function build_redirect_to_query_param(query_param_name) {
     return redirect_to_get_param;
 }
 
+// When param_name is missing, 'param_name=url' is implied
 const urls_to_param_mappers = [
     {
         urls: ["*://l.facebook.com/*", "*://lm.facebook.com/*"],
@@ -230,12 +229,13 @@ const urls_to_param_mappers = [
 
 // Google's outbound redirect is weird so it has its own function here
 function bypass_google_redirect(requestDetails) {
-  const search_params = new URLSearchParams(new URL(requestDetails.url).search);
-  var real_url_from_param = search_params.get("q") ? search_params.get("url") : null;
-  if (real_url_from_param) {
-    //console.log('Redirecting to ' + real_url_from_param);
-    return { redirectUrl: real_url_from_param };
-  }
+    const search_params = new URLSearchParams(new URL(requestDetails.url).search);
+    var real_url_from_param = search_params.get("q") ? search_params.get("url") : null;
+    if (real_url_from_param) {
+        //console.log('Redirecting to ' + real_url_from_param);
+        return { redirectUrl: real_url_from_param };
+    }
+    return { redirectUrl: '' };
 }
 
 browser.webRequest.onBeforeRequest.addListener(
