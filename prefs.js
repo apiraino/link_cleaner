@@ -20,7 +20,7 @@ const defaultSettings = {
   Settings actionable by the options datatypes
   These values are used by the extension
 */
-var settings = {
+let settings = {
     'clean_amp_links': false,
     'redirect_reddit_nojs': false,
 };

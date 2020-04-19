@@ -73,13 +73,6 @@ function build_query_param_remover(shouldRemove) {
     };
 }
 
-function wildcard_matches_any(patterns) {
-    var re_patterns = patterns.map(function(pat) { return pat.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&').replace("\\*", ".+"); });
-    return function(p) {
-        return re_patterns.some(function(pat) { return (new RegExp(pat)).test(p); });
-    };
-}
-
 // Filter out utm_* query parameters
 var clean_utm_req = build_query_param_remover(f_match_utm);
 browser.webRequest.onBeforeRequest.addListener(
@@ -180,24 +173,29 @@ browser.webRequest.onBeforeRequest.addListener(
     ["blocking"]
 );
 
-function build_redirect_to_query_param(query_param_name) {
-    const redirect_to_get_param = function (requestDetails) {
-        const search_params = new URLSearchParams(new URL(requestDetails.url).search);
-        const real_url_from_param = search_params.get(query_param_name);
-        if (real_url_from_param) {
-            //console.log('Redirecting to ' + real_url_from_param);
-            return { redirectUrl: real_url_from_param };
-        }
-        return { redirectUrl: '' };
+function redirect_to_query_param (query_param, url) {
+    console.log("[redirect_to_query_param] will pick p=" + query_param + " url=" + url);
+    const search_params = new URLSearchParams(new URL(url).search);
+    const real_url_from_param = search_params.get(query_param);
+    if (real_url_from_param) {
+        console.log('[redirect_to_query_param] Redirecting to ' + real_url_from_param);
+        return { redirectUrl: real_url_from_param };
+    }
+    console.log('[redirect_to_query_param] no redirect');
+    return { redirectUrl: '' };
+};
+
+function build_redirect_to_query_param(query_param) {
+    return function(requestDetails) {
+        return redirect_to_query_param(query_param, requestDetails.url);
     };
-    return redirect_to_get_param;
 }
 
 // When param_name is missing, 'param_name=url' is implied
 const urls_to_param_mappers = [
     {
         urls: ["*://l.facebook.com/*", "*://lm.facebook.com/*"],
-        param_name: 'u'
+        query_param: 'u'
     },
     {
         urls: ["*://out.reddit.com/*"]
@@ -207,24 +205,27 @@ const urls_to_param_mappers = [
     },
     {
         urls: ["*://l.instagram.com/*"],
-        param_name: 'u'
+        query_param: 'u'
     },
     {
         urls: ["*://t.umblr.com/*"],
-        param_name: 'z'
+        query_param: 'z'
     },
     {
         urls: ["*://sys.4chan.org/derefer?*"]
     },
     {
         urls: ["*://www.youtube.com/redirect?*"],
-        param_name: 'q'
+        query_param: 'q'
     },
     {
         urls: ["*://slack-redir.net/link"]
     },
     {
         urls: ["*://x.chip.de/"]
+    },
+    {
+        urls: ["*://*getpocket.com/*"]
     }
 ];
 
@@ -282,10 +283,10 @@ browser.webRequest.onBeforeRequest.addListener(
 );
 
 urls_to_param_mappers.forEach(function(listenerConfig) {
-    const param_name = listenerConfig.param_name ? listenerConfig.param_name : 'url';
-    console.debug('Mapping ' + listenerConfig.urls + ' to param name ' + param_name);
+    const query_param = listenerConfig.query_param ? listenerConfig.query_param : 'url';
+    // console.debug('Mapping ' + listenerConfig.urls + ' to param name ' + query_param);
     browser.webRequest.onBeforeRequest.addListener(
-        build_redirect_to_query_param(param_name),
+        build_redirect_to_query_param(query_param),
         {
             urls: listenerConfig.urls,
             types: ["main_frame"]
