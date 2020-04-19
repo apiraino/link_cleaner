@@ -93,7 +93,7 @@ var instagram_regexp = [
     "*://*.instagram.com/*",
 ];
 
-// query params matching
+// query params matching used in link_cleaner()
 
 var f_match_utm = p => p.startsWith("utm_");
 var f_match_all = p => true;

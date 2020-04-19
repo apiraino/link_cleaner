@@ -24,7 +24,8 @@
         "webRequestBlocking",
         "contextMenus",
         "menus",
-        "storage"
+        "storage",
+        "clipboardWrite"
     ],
     "options_ui": {
         "page": "options/options.html"

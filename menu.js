@@ -34,7 +34,7 @@ browser.menus.create({
 browser.menus.onClicked.addListener((info, tab) => {
     switch (info.menuItemId) {
     case "copy-link":
-        copyToClipboard(info.linkUrl);
+        copyToClipboard(info);
         break;
     }
 });
