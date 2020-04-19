@@ -1,4 +1,4 @@
-var prefs = {
+let prefs = {
     'clean_amp_links': false,
     'redirect_reddit_nojs': false
 };
@@ -12,7 +12,7 @@ function storeSettings() {
         let dataTypes = [];
         const checkboxes = document.querySelectorAll(".data-types [type=checkbox]");
         for (let item of checkboxes) {
-            var _attr = item.getAttribute("data-type");
+            const _attr = item.getAttribute("data-type");
             if (item.checked) {
                 // dataTypes.push(item.getAttribute("data-type"));
                 dataTypes.push({ [_attr] : true });
@@ -52,8 +52,8 @@ function update_prefs(dataTypes) {
 
     // updates prefs with new values
     dataTypes.forEach(function(v, k) {
-        var _key = Object.keys(dataTypes[k])[0];
-        var _val = dataTypes[k][_key];
+        const _key = Object.keys(dataTypes[k])[0];
+        const _val = dataTypes[k][_key];
         prefs[_key] = _val;
     });
     console.debug(prefs);
@@ -73,22 +73,22 @@ function notifyExtension(e) {
 function updateUI(restoredSettings) {
 
     // Localize UI
-    var settings_title = browser.i18n.getMessage('settingsTitle');
-    var clean_amp_links_lbl = browser.i18n.getMessage('settingsSanitizeAMPLabel');
-    var redirect_reddit_nojs_lbl = browser.i18n.getMessage('settingsRedirectRedditNoJSLabel');
-    var save_prefs_lbl = browser.i18n.getMessage('settingsSavePrefs');
+    const settings_title = browser.i18n.getMessage('settingsTitle');
+    const clean_amp_links_lbl = browser.i18n.getMessage('settingsSanitizeAMPLabel');
+    const redirect_reddit_nojs_lbl = browser.i18n.getMessage('settingsRedirectRedditNoJSLabel');
+    const save_prefs_lbl = browser.i18n.getMessage('settingsSavePrefs');
     document.querySelector("#clean-amp-links-lbl").innerText = clean_amp_links_lbl;
     document.querySelector("#redirect-reddit-nojs-lbl").innerText = redirect_reddit_nojs_lbl;
     document.querySelector("#settings-title").innerText = settings_title;
     document.querySelector("#save-button").value = save_prefs_lbl;
 
     // populate options
-    var checkboxes = document.querySelectorAll(".data-types [type=checkbox]");
+    const checkboxes = document.querySelectorAll(".data-types [type=checkbox]");
 
     // put all defaults in a sane structure (ugh)
-    var restoredSettingsKeys = {};
+    let restoredSettingsKeys = {};
     for(let i = 0; i < restoredSettings.dataTypes.length; i++) {
-        var obj = restoredSettings.dataTypes[i];
+        const obj = restoredSettings.dataTypes[i];
         for (let key of Object.keys(obj)) {
             restoredSettingsKeys[key] = obj[key];
         }
@@ -96,7 +96,7 @@ function updateUI(restoredSettings) {
 
     // parse the options and updates settings
     for (let item of checkboxes) {
-        var need_key = item.getAttribute("data-type");
+        const need_key = item.getAttribute("data-type");
         if (need_key in restoredSettingsKeys) {
             item.checked = restoredSettingsKeys[need_key];
         } else {

@@ -2,7 +2,7 @@
 
 // note: "the wildcard may only appear at the start"
 // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Match_patterns
-var amazon_regexp = [
+const amazon_regexp = [
     "*://*.amazon.com/d/*",
     "*://*.amazon.ca/d/*",
     "*://*.amazon.co.jp/d/*",
@@ -72,31 +72,31 @@ var amazon_regexp = [
     "*://*.amazon.com.br/gp/product/*",
 ];
 
-var aliexpress_regexp = [
+const aliexpress_regexp = [
     "*://*.aliexpress.com/item/*.html*",
     "*://*.aliexpress.com/store/product/*.html*",
 ];
 
-var amp_regexp = [
+const amp_regexp = [
     "*://*/amp/*",
 ];
 
-var all_urls = [
+const all_urls = [
     "*://*"
 ];
 
-var fbcontent_regexp = [
+const fbcontent_regexp = [
     "*://*.fbcdn.net/*",
 ];
 
-var instagram_regexp = [
+const instagram_regexp = [
     "*://*.instagram.com/*",
 ];
 
 // query params matching used in link_cleaner()
 
-var f_match_utm = p => p.startsWith("utm_");
-var f_match_all = p => true;
-var f_match_fbclid = p => p == "fbclid";
-var f_match_igshid = p => p == "igshid";
-var f_match_fbcontent = p => p == "efg";
+const f_match_utm = p => p.startsWith("utm_");
+const f_match_all = p => true;
+const f_match_fbclid = p => p == "fbclid";
+const f_match_igshid = p => p == "igshid";
+const f_match_fbcontent = p => p == "efg";

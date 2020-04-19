@@ -6,7 +6,7 @@
 
 */
 
-var global_link_text = '';
+let global_link_text = '';
 
 function glob_to_regexp (pattern) {
     // https://stackoverflow.com/a/24558913
@@ -17,9 +17,9 @@ function glob_to_regexp (pattern) {
 
 // remove tracking query params
 function maybe_clean (orig_url, urls, f) {
-    var res = '';
-    for (var idx = 0; idx < urls.length; idx++) {
-        var patt = glob_to_regexp(urls[idx]);
+    let res = '';
+    for (let idx = 0; idx < urls.length; idx++) {
+        const patt = glob_to_regexp(urls[idx]);
         if (patt.test(orig_url)) {
             res = link_cleaner(orig_url, f)['redirectUrl'];
             break;
@@ -30,9 +30,9 @@ function maybe_clean (orig_url, urls, f) {
 
 // rewrite URL
 function maybe_clean_url (orig_url, urls, f) {
-    var res = '';
-    for (var idx = 0; idx < urls.length; idx++) {
-        var patt = glob_to_regexp(urls[idx]);
+    let res = '';
+    for (let idx = 0; idx < urls.length; idx++) {
+        const patt = glob_to_regexp(urls[idx]);
         if (patt.test(orig_url)) {
             res = f(orig_url)['redirectUrl'];
             break;

@@ -73,13 +73,6 @@ function build_query_param_remover(shouldRemove) {
     };
 }
 
-function wildcard_matches_any(patterns) {
-    var re_patterns = patterns.map(function(pat) { return pat.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&').replace("\\*", ".+"); });
-    return function(p) {
-        return re_patterns.some(function(pat) { return (new RegExp(pat)).test(p); });
-    };
-}
-
 // Filter out utm_* query parameters
 var clean_utm_req = build_query_param_remover(f_match_utm);
 browser.webRequest.onBeforeRequest.addListener(
