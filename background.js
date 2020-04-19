@@ -25,7 +25,8 @@ function clean_amp(url) {
     return new_url;
 }
 
-// Clean URL query params only
+// Clean URL query params only (one or all of them)
+// see cleaning_rules.js
 function link_cleaner(orig_url, shouldRemove) {
     // console.debug("[link_cleaner] got " + orig_url + " and " + shouldRemove);
     var url = new URL(orig_url);

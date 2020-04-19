@@ -41,15 +41,16 @@ function maybe_clean_url (orig_url, urls, f) {
     return (res != '' ? res : orig_url);
 }
 
+// this is only invoked on right-click menu action
 function cleaner_entrypoint (orig_link) {
 
-    // query params matching
+    // Remove tracking params form url
     // TODO: profile && improve perfs here
-
-    var new_link = maybe_clean(orig_link, all_urls, f_match_utm);
-    new_link = maybe_clean(new_link, aliexpress_regexp, f_match_all);
+    let new_link = maybe_clean(orig_link, all_urls, f_match_utm);
     new_link = maybe_clean(new_link, all_urls, f_match_fbclid);
+    new_link = maybe_clean(new_link, aliexpress_regexp, f_match_all);
     new_link = maybe_clean(new_link, fbcontent_regexp, f_match_fbcontent);
+    new_link = maybe_clean(new_link, instagram_regexp, f_match_igshid);
 
     // clean URL
     new_link = maybe_clean_url(new_link, ["amazon"], clean_amazon);
@@ -58,7 +59,7 @@ function cleaner_entrypoint (orig_link) {
     return new_link;
 }
 
-function copyToClipboard(text) {
+function copyToClipboard(obj) {
     // does not work inside frame
     if ((document.activeElement instanceof HTMLIFrameElement) ||
         (document.activeElement instanceof HTMLFrameElement)) {
@@ -67,9 +68,13 @@ function copyToClipboard(text) {
         document.activeElement.blur();
     }
 
-    // sequential execution of all cleaners
-    console.debug("[copytoclipboard] link to be cleaned " + text);
-    global_link_text = cleaner_entrypoint(text);
+    // if there is a link, clean it, otherwise copy the text
+    if (obj.linkUrl !== undefined) {
+        // sequential execution of all cleaners
+        global_link_text = cleaner_entrypoint(obj.linkUrl);
+    } else {
+        global_link_text = obj.selectionText;
+    }
 
     // trigger cleaned link copy back in clipboard
     document.execCommand("copy");
