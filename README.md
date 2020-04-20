@@ -16,7 +16,7 @@ Feature list:
 - [x] on item pages of Amazon, rewrites SEO friendly links to the tbare minimum (see examples below)
 - [x] Configurable flag to enable / disable AMP links cleanlinks
 - [x] Context menu item to copy sanitized link to clipboard
-- [ ] (partly implemented) skip redirect pages of facebook, steam and reddit (directly go to the url
+- [x] (partly implemented) skip redirect pages of facebook, steam and reddit (directly go to the url
 being redirected to, and never hit their outgoing redirect tracking)
 
 You can now visit and bookmark clean links instead of the long, tracking-enabled ones!
