@@ -69,9 +69,9 @@ function cleaner_entrypoint (orig_link) {
     // 2nd check: remove tracking query params
     // TODO: profile && improve perfs here
     new_link = maybe_clean(new_link, all_urls, f_match_utm);
-    new_link = maybe_clean(new_link, all_urls, f_match_fbclid);
+    new_link = maybe_clean(new_link, all_urls, f_match_fb);
     new_link = maybe_clean(new_link, aliexpress_regexp, f_match_all);
-    new_link = maybe_clean(new_link, fbcontent_regexp, f_match_fbcontent);
+    // new_link = maybe_clean(new_link, fbcontent_regexp, f_match_fbcontent);
     new_link = maybe_clean(new_link, instagram_regexp, f_match_igshid);
 
     // 3rd check: (optional) clean Amazon URL
