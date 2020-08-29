@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.7.3] - 2020-08-29
+### Changed
+- Fix [#22](https://github.com/apiraino/link_cleaner/issues/22): google url parsing (thanks [@SaltyBet](https://github.com/SaltyBet)!)
+- Skipped two minor versions because I suck at publishing on AMO
+
 ## [1.7.0] - 2020-04-13
 ### Added
 - Clean chip.de links

@@ -77,11 +77,13 @@ $ zip -r -FS ~/tmp/link_cleaner_x.y.xpi manifest.json *.js _locales/ options/ as
 ```
 
 ``` bash
-# signed, suitable for publishing (needs API key set in env)
-$ web-ext sign --ignore-files web-ext-run.sh
+# build and sign for publishing on AMO (needs API key set in env)
+$ web-ext sign -i web-ext-run.sh
+$ ls web-ext-artifacts/
+link_cleaner_x.y.zip
 ```
 
-Note: the `sign` subcommand [has a bug](https://github.com/mozilla/web-ext/issues/793) when reading API keys from env.
+Note for `web-ext` version < 4.2.0: the `sign` subcommand [had a bug](https://github.com/mozilla/web-ext/issues/793) when reading API keys from env, now solved.
 
 # Credits
 
