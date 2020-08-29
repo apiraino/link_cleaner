@@ -232,7 +232,7 @@ const urls_to_param_mappers = [
 // Google's outbound redirect is weird so it has its own function here
 function bypass_google_redirect(requestDetails) {
     const search_params = new URLSearchParams(new URL(requestDetails.url).search);
-    var real_url_from_param = search_params.get("q") ? search_params.get("url") : null;
+    var real_url_from_param = search_params.get("q") || search_params.get("url");
     if (real_url_from_param) {
         //console.log('Redirecting to ' + real_url_from_param);
         return { redirectUrl: real_url_from_param };
