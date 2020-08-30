@@ -85,7 +85,7 @@ browser.webRequest.onBeforeRequest.addListener(
 );
 
 // Filter out Facebook Click Identifier query parameters
-var clean_fbclid = build_query_param_remover(f_match_fbclid);
+var clean_fbclid = build_query_param_remover(f_match_fb);
 browser.webRequest.onBeforeRequest.addListener(
     clean_fbclid,
     {
@@ -163,25 +163,15 @@ browser.webRequest.onBeforeRequest.addListener(
     ["blocking"]
 );
 
-var remove_fbcontentparam = build_query_param_remover(f_match_fbcontent);
-browser.webRequest.onBeforeRequest.addListener(
-    remove_fbcontentparam,
-    {
-        urls: fbcontent_regexp,
-        types: ["main_frame"]
-    },
-    ["blocking"]
-);
-
 function redirect_to_query_param (query_param, url) {
-    console.log("[redirect_to_query_param] will pick p=" + query_param + " url=" + url);
+    // console.log("[redirect_to_query_param] will pick p=" + query_param + " url=" + url);
     const search_params = new URLSearchParams(new URL(url).search);
     const real_url_from_param = search_params.get(query_param);
     if (real_url_from_param) {
-        console.log('[redirect_to_query_param] Redirecting to ' + real_url_from_param);
+        // console.log('[redirect_to_query_param] Redirecting to ' + real_url_from_param);
         return { redirectUrl: real_url_from_param };
     }
-    console.log('[redirect_to_query_param] no redirect');
+    // console.log('[redirect_to_query_param] no redirect');
     return { redirectUrl: '' };
 };
 

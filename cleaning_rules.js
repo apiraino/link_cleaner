@@ -95,8 +95,12 @@ const instagram_regexp = [
 
 // query params matching used in link_cleaner()
 
+// various facebook trackers
+const fb_tracking = [
+    'if_id', '__tn__', 'efg', 'eid', 'fref', '__xts__', 'fbadid', 'fbclid'
+];
+
 const f_match_utm = p => p.startsWith("utm_");
 const f_match_all = p => true;
-const f_match_fbclid = p => p == "fbclid";
 const f_match_igshid = p => p == "igshid";
-const f_match_fbcontent = p => p == "efg";
+const f_match_fb = p => fb_tracking.includes(p);
