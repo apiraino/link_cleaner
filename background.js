@@ -219,13 +219,13 @@ const urls_to_param_mappers = [
         query_param: 'q'
     },
     {
-        urls: ["*://slack-redir.net/link"]
+        urls: ["*://slack-redir.net/link*"]
     },
     {
-        urls: ["*://x.chip.de/"]
+        urls: ["*://x.chip.de/linktrack/button/*"]
     },
     {
-        urls: ["*://*getpocket.com/*"]
+        urls: ["*://getpocket.com/redirect*", "*://www.getpocket.com/redirect*"]
     }
 ];
 
