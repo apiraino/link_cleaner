@@ -7,7 +7,7 @@ function isEmptyObject (obj) {
 // Clean AMP URLs
 function clean_amp(url) {
     var new_url = new URL(url);
-    console.debug("clean_amp before: " + url.href);
+    console.debug("[link_cleaner][clean_amp] before: " + url.href);
     var regex = /\/amp/gi;
     new_url.href = url.href.replace(regex, '');
 
@@ -21,7 +21,7 @@ function clean_amp(url) {
         }
     }
 
-    console.debug("clean_amp after: " + new_url.href);
+    console.debug("[link_cleaner][clean_amp] after: " + new_url.href);
     return new_url;
 }
 
@@ -40,12 +40,12 @@ function link_cleaner(orig_url, shouldRemove) {
             if (shouldRemove(p)) {
                 needs_redirect = true;
                 new_params.delete(p);
-                console.debug("[link_cleaner] nuked query param: ", p);
+                console.debug("[link_cleaner][link_cleaner] nuked query param: ", p);
             }
         }
 
         if (needs_redirect) {
-            console.debug("[link_cleaner] needs redirect!!");
+            console.debug("[link_cleaner][link_cleaner] needs redirect!!");
             url.search = new_params.toString();
             ret_val = {redirectUrl: url.href};
         }
@@ -54,7 +54,7 @@ function link_cleaner(orig_url, shouldRemove) {
         // this should stay somewhere else
         // cleaner listeners should be serialized
         if (settings['clean_amp_links'] === true) {
-            console.debug("AMP cleaning ACTIVE");
+            console.debug("[link_cleaner][link_cleaner] AMP cleaning ACTIVE");
             var cleaned_url = clean_amp(url);
             if (cleaned_url.href !== url.href) {
                 ret_val = {redirectUrl: cleaned_url.href};
@@ -121,8 +121,8 @@ function clean_amazon(url) {
         new_url.href = url.substring(0, slash_ref_index + 1);
         if (new_url.href != url) {
             // try to avoid infinite redirect loops that might arise
-            console.warn('Is something strange happening?');
-            console.debug("Redirecting from: ", url, "\nto: ", new_url.href);
+            console.warn('[link_cleaner][clean_amazon] Is something strange happening?');
+            console.debug("[link_cleaner][clean_amazon] Redirecting from: ", url, "\nto: ", new_url.href);
             // TODO: return {redirectUrl: new_url.href};
         }
     } else {
@@ -136,11 +136,11 @@ function clean_amazon(url) {
     // scrap SEO friendly text
     var dp_idx = new_url.pathname.indexOf('/dp');
     if (dp_idx > 0) {
-        console.debug('Stripping out SEO stuff: ' + new_url.pathname);
+        console.debug('[link_cleaner][clean_amazon] Stripping out SEO stuff: ' + new_url.pathname);
         new_url.pathname = new_url.pathname.substring(dp_idx, new_url.pathname.length);
     }
 
-    console.debug("final url is: " + new_url.href);
+    console.debug("[link_cleaner][clean_amazon] final url is: " + new_url.href);
     return { redirectUrl: new_url.href };
 }
 
@@ -174,14 +174,14 @@ browser.webRequest.onBeforeRequest.addListener(
 );
 
 function redirect_to_query_param (query_param, url) {
-    console.log("[redirect_to_query_param] will pick p=" + query_param + " url=" + url);
+    console.log("[link_cleaner][redirect_to_query_param] will pick p=" + query_param + " url=" + url);
     const search_params = new URLSearchParams(new URL(url).search);
     const real_url_from_param = search_params.get(query_param);
     if (real_url_from_param) {
-        console.log('[redirect_to_query_param] Redirecting to ' + real_url_from_param);
+        console.log('[link_cleaner][redirect_to_query_param] Redirecting to ' + real_url_from_param);
         return { redirectUrl: real_url_from_param };
     }
-    console.log('[redirect_to_query_param] no redirect');
+    console.log('[link_cleaner][redirect_to_query_param] no redirect');
     return { redirectUrl: '' };
 };
 
@@ -262,13 +262,13 @@ const rewriteRedditUrl = requestDetails => browser.storage.local.get()
               }
           }
           if (restoredSettingsKeys['redirect_reddit_nojs'] === true) {
-              console.debug("Reddit redirect ACTIVE");
+              console.debug("[link_cleaner][rewriteRedditUrl] Reddit redirect ACTIVE");
               return ({ redirectUrl: requestDetails.url.replace('www', 'old') });
           }
           return ({ redirectUrl: '' });
       })
       .catch(error => {
-          console.log(`Error: ${error}`);
+          console.log(`[link_cleaner][rewriteRedditUrl] Error: ${error}`);
           return ({ redirectUrl: '' });
       });
 
