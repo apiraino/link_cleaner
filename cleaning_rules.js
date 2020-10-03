@@ -73,8 +73,15 @@ const amazon_regexp = [
 ];
 
 const aliexpress_regexp = [
+    "*://*.alibaba.com/product-detail/*.html*",
+
     "*://*.aliexpress.com/item/*.html*",
+    "*://aliexpress.ru/item/*.html*",
+    "*://m.aliexpress.ru/item/*.html*",
+
     "*://*.aliexpress.com/store/product/*.html*",
+    "*://aliexpress.ru/store/product/*.html*",
+    "*://m.aliexpress.ru/store/product/*.html*",
 ];
 
 const amp_regexp = [
