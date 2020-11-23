@@ -28,6 +28,6 @@ https://t.mailpgn.com/l/?u=f4285f76-f1be-4373-805b-f690af95ccd5&fl=https%3A%2F%2
 
 https://us18.mailchimp.com/mctx/clicks?url=https%3A%2F%2Fmailchi.mp%2F5f701f9d65c0%2Fcongressman_bradley_byrne_staff-member_02-19-2020_mstownhall_130-230&h=5b02d3916fa64b22b6b286171fc98aa1b813d4f9dc17168518054717d42f001e&v=1&xid=4d8e63a7d8&uid=94352913&pool=&subject=
 
-https://medium.com/m/global-identity?redirectUrl=https://blog.unocoin.com/how-true-are-fears-of-a-cryptoasset-bubble-8dd119b15ccc
+https://medium.com/m/global-identity?redirectUrl=https://blog.unocoin.com/how-true-are-fears-of-a-cryptoasset-bubble-8dd119b15ccc (not yet implemented)
 
 https://jsv3.recruitics.com/redirect?rx_cid=3308&rx_jobId=R181269&rx_url=https%3A//careers.arrow.com/us/en/job/R181269/Accounting-Consolidations-Reporting-Analyst-II%3Futm_medium%3Dphenom-feeds%26utm_source%3Dbuiltincolorado%26rx_medium%3Dpost%26rx_paid%3D1%26rx_r%3Dnone%26rx_source%3Dbuiltinco%26rx_ts%3D20201116T192433Z
