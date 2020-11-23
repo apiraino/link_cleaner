@@ -230,6 +230,9 @@ const urls_to_param_mappers = [
     {
 		urls: ["*://t.mailpgn.com/l/*"],
 		query_param: 'fl'
+    },
+    {
+		urls: ["*://*.mailchimp.com/mctx/clicks*"]
     }
 ];
 
