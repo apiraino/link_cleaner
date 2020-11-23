@@ -237,6 +237,10 @@ const urls_to_param_mappers = [
     {
         urls: ["*://medium.com/m/global-identity*"],
         query_param: 'redirectUrl'
+    },
+    {
+        urls: ["*://*.recruitics.com/redirect*"],
+        query_param: 'rx_url'
     }
 ];
 
