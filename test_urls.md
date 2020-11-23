@@ -27,3 +27,5 @@ https://lm.facebook.com/l.php?u=http%3A%2F%2Fwww.dailycal.org%2F2018%2F10%2F11%2
 https://t.mailpgn.com/l/?u=f4285f76-f1be-4373-805b-f690af95ccd5&fl=https%3A%2F%2Fsiteoly.com
 
 https://us18.mailchimp.com/mctx/clicks?url=https%3A%2F%2Fmailchi.mp%2F5f701f9d65c0%2Fcongressman_bradley_byrne_staff-member_02-19-2020_mstownhall_130-230&h=5b02d3916fa64b22b6b286171fc98aa1b813d4f9dc17168518054717d42f001e&v=1&xid=4d8e63a7d8&uid=94352913&pool=&subject=
+
+https://medium.com/m/global-identity?redirectUrl=https://blog.unocoin.com/how-true-are-fears-of-a-cryptoasset-bubble-8dd119b15ccc

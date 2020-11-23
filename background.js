@@ -233,6 +233,10 @@ const urls_to_param_mappers = [
     },
     {
         urls: ["*://*.mailchimp.com/mctx/clicks*"]
+    },
+    {
+        urls: ["*://medium.com/m/global-identity*"],
+        query_param: 'redirectUrl'
     }
 ];
 
