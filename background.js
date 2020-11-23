@@ -226,6 +226,10 @@ const urls_to_param_mappers = [
     },
     {
         urls: ["*://getpocket.com/redirect*", "*://www.getpocket.com/redirect*"]
+    },
+    {
+		urls: ["*://t.mailpgn.com/l/*"],
+		query_param: 'fl'
     }
 ];
 
