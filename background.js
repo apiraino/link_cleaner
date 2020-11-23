@@ -228,11 +228,11 @@ const urls_to_param_mappers = [
         urls: ["*://getpocket.com/redirect*", "*://www.getpocket.com/redirect*"]
     },
     {
-		urls: ["*://t.mailpgn.com/l/*"],
-		query_param: 'fl'
+        urls: ["*://t.mailpgn.com/l/*"],
+        query_param: 'fl'
     },
     {
-		urls: ["*://*.mailchimp.com/mctx/clicks*"]
+        urls: ["*://*.mailchimp.com/mctx/clicks*"]
     }
 ];
 
