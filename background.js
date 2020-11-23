@@ -234,10 +234,11 @@ const urls_to_param_mappers = [
     {
         urls: ["*://*.mailchimp.com/mctx/clicks*"]
     },
-    {
-        urls: ["*://medium.com/m/global-identity*"],
-        query_param: 'redirectUrl'
-    },
+    // Leads to infinite redirect loop
+    // {
+    //     urls: ["*://medium.com/m/global-identity*"],
+    //     query_param: 'redirectUrl'
+    // },
     {
         urls: ["*://*.recruitics.com/redirect*"],
         query_param: 'rx_url'
