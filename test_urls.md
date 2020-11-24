@@ -23,3 +23,11 @@ https://www.google.com/url?q=https://soundcloud.com&sa=D&ust=1504422217100000&us
 https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&cad=rja&uact=8&ved=0ahUKEwiU4JDYyZvUAhUoxFQKHf5IAEAQFggsMAE&url=https%3A%2F%2Fgithub.com%2Fidlewan%2Flink_cleaner&usg=AFQjCNHLsiLWuJifp8qBynFPaicSw0gLGw&sig2=imkIeC-CN_z-8x5NgFr4TQ
 
 https://lm.facebook.com/l.php?u=http%3A%2F%2Fwww.dailycal.org%2F2018%2F10%2F11%2Fuc-berkeley-community-hosts-events-for-zero-waste-october%2F%3Ffbclid%3Dnotachance&h=AT3jrqKvULa2phePG9px8v7dWeSEtBniR2q9sGAyzA5_Yejv-5jJsM1bsJx_d54bk6OOdVBX8z8FUmXXKTy52eDYSnazhoD8HHypKGNyFFNPhHP6gzCaf0TlwstD10pBrRW7s_2-AOpCvch7AKqeXJAZp_MiRnKCxA0n7SiMzMEqYFlAD3ngCc0BNXlH7KQol2PRDAqIW8xMisdRzY2rsh475bHX03bKs76CIv1Y6oMACrlsS5i51Bk_7Dx3EvLOZsrTX8UoxRn9lYEY9kUM7tLA3wwF1XpFsXfXUM4lqDBmNGZmg5LC6NJ1gRQMLbzkpw12eF5YOvVX7N45kiXuSC2JxeiI7FX0hZRrPwSKDdx3unkz9kKzk-CMjEWG1jBpJf8L99rsS0Y3wkBRKUM-pp1HhNJkc9dzZ4B51-9CPNa1B_YKnxPYaN57HnaWy5lfojUVSbxl5C8_53EpSMyLdApxf_cXykvpzbA6_KsPlDqINfikghLskLcqiRG98HvEPTHhDsgNUi0ZUIUqs8gbekgzEg6SgkSzS_ai33VkmDN6Cs--uvEctT9yRCKdiuVo1Eb1ef8G-KuPsh8tUo7JhK07jRIhedbeUnqIUtqwiVWE_P4dyLFdJCZ7Mby1AGG4KbxKqVehZDeaWBHBA4eYjMFBtUCw3ISjZ7iAMIvm6Jdjxo2qXHY1TjT4MsswVC3Z2ruCIQDoXKdReto0GddPOOj0EtGTvtub2WJNatzWRHIkFnP3NBLrWfPc7bI55jhfUsvmkSX7Qo2loSSYGeRkTbcEma2O1_2-TP1iGEk7B0joPQcDdYLBiGJnHw7dsorfi4acsoTroyDrlwvXvxQaHjFFOr3CyrGXfG6SrEtoZVE4E6nhSng9q32Z_7QqXXQNTkRlzoqlp-RL3HfV_Kqu2hUgfyNc0Z_zsMw72zcbYoIgV-W7xM8GgL-F
+
+https://t.mailpgn.com/l/?u=f4285f76-f1be-4373-805b-f690af95ccd5&fl=https%3A%2F%2Fsiteoly.com
+
+https://us18.mailchimp.com/mctx/clicks?url=https%3A%2F%2Fmailchi.mp%2F5f701f9d65c0%2Fcongressman_bradley_byrne_staff-member_02-19-2020_mstownhall_130-230&h=5b02d3916fa64b22b6b286171fc98aa1b813d4f9dc17168518054717d42f001e&v=1&xid=4d8e63a7d8&uid=94352913&pool=&subject=
+
+https://medium.com/m/global-identity?redirectUrl=https://blog.unocoin.com/how-true-are-fears-of-a-cryptoasset-bubble-8dd119b15ccc (not yet implemented)
+
+https://jsv3.recruitics.com/redirect?rx_cid=3308&rx_jobId=R181269&rx_url=https%3A//careers.arrow.com/us/en/job/R181269/Accounting-Consolidations-Reporting-Analyst-II%3Futm_medium%3Dphenom-feeds%26utm_source%3Dbuiltincolorado%26rx_medium%3Dpost%26rx_paid%3D1%26rx_r%3Dnone%26rx_source%3Dbuiltinco%26rx_ts%3D20201116T192433Z

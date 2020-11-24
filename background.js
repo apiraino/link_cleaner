@@ -226,6 +226,22 @@ const urls_to_param_mappers = [
     },
     {
         urls: ["*://getpocket.com/redirect*", "*://www.getpocket.com/redirect*"]
+    },
+    {
+        urls: ["*://t.mailpgn.com/l/*"],
+        query_param: 'fl'
+    },
+    {
+        urls: ["*://*.mailchimp.com/mctx/clicks*"]
+    },
+    // Leads to infinite redirect loop
+    // {
+    //     urls: ["*://medium.com/m/global-identity*"],
+    //     query_param: 'redirectUrl'
+    // },
+    {
+        urls: ["*://*.recruitics.com/redirect*"],
+        query_param: 'rx_url'
     }
 ];
 
