@@ -1,0 +1,36 @@
+{
+    "extensionName": {
+        "message": "Link cleaner",
+        "description": "Name of the extension."
+    },
+
+    "extensionDescription": {
+        "message": "Tiện ích mở rộng để làm sạch URL trước khi đi đến.",
+        "description": "Description of the extension."
+    },
+
+    "menuItemCopyAndClean": {
+        "message": "S&ao chép đường dẫn sạch",
+        "description": "Title of context menu item."
+    },
+
+    "settingsTitle": {
+        "message": "Cài đặt:",
+        "description": "Whether to clean AMP links too"
+    },
+
+    "settingsSanitizeAMPLabel": {
+        "message": "Làm sạch đường dẫn AMP",
+        "description": "Whether to clean AMP links too"
+    },
+
+    "settingsRedirectRedditNoJSLabel": {
+        "message": "Chuyển hướng đến nojs Reddit\n(www.reddit.com -> old.reddit.com)",
+        "description": "Whether to redirect to the no-js friendly"
+    },
+
+    "settingsSavePrefs": {
+        "message": "Lưu cài đặt",
+        "description": "Says it all ..."
+    }
+}
