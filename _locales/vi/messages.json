@@ -16,7 +16,7 @@
 
     "settingsTitle": {
         "message": "Cài đặt:",
-        "description": "Whether to clean AMP links too"
+        "description": "Title for advanced settings"
     },
 
     "settingsSanitizeAMPLabel": {
