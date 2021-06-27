@@ -11,13 +11,13 @@ The original project seems to have stalled, issues and pull requests don't get t
 Links are checked and sanitized before any further action is performed (browser redirect, open tab, copy link). Sanitization is performed based on a blacklist.
 
 Feature list:
-- [x] removes utm_* parameters
+
+- [x] removes utm\_\* parameters
 - [x] on item pages such as of Aliexpress and Amazon, removes tracking parameters
 - [x] on item pages of Amazon, rewrites SEO friendly links to the tbare minimum (see examples below)
 - [x] Configurable flag to enable / disable AMP links cleanlinks (Why are [Google AMP page bad](https://love2dev.com/blog/problems-with-google-accelerated-mobile-pages-and-fighting-back/)?)
 - [x] Context menu item to copy sanitized link to clipboard
-- [x] skip redirect pages of facebook, steam and reddit (directly go to the url
-being redirected to, and never hit their outgoing redirect tracking)
+- [x] skip redirect pages of facebook, steam and reddit (directly go to the url being redirected to, and never hit their outgoing redirect tracking)
 
 You can now visit and bookmark clean links instead of the long, tracking-enabled ones!
 
@@ -25,23 +25,22 @@ Link Cleaner+ is a work in progress, [contributions and suggestions](https://git
 
 # Examples:
 
-|                | utm_* removal                                                                                                                                                                                                    |
-| -              | :-                                                                                                                                                                                                               |
+|           | utm\_\* removal                                                                                                                                                                                                  |
+| --------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Original  | `http://meyerweb.com/eric/thoughts/2017/03/07/welcome-to-the-grid/?utm_source=frontendfocus&utm_medium=email`                                                                                                    |
 | Sanitized | `http://meyerweb.com/eric/thoughts/2017/03/07/welcome-to-the-grid`                                                                                                                                               |
-|                | **Amazon item URL**                                                                                                                                                                                              |
+|           | **Amazon item URL**                                                                                                                                                                                              |
 | Original  | `https://www.amazon.com/AmazonBasics-Type-C-USB-Male-Cable/dp/B01GGKYQ02/ref=sr_1_1?s=amazonbasics&srs=10112675011&ie=UTF8&qid=1489067885&sr=8-1&keywords=usb-c`                                                 |
 | Sanitized | `https://www.amazon.com/dp/B01GGKYQ02`                                                                                                                                                                           |
-|                | **Facebook redirect**                                                                                                                                                                                            |
+|           | **Facebook redirect**                                                                                                                                                                                            |
 | Original  | `https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.fsf.org%2Fcampaigns%2F&h=ATP1kf98S0FxqErjoW8VmdSllIp4veuH2_m1jl69sEEeLzUXbkNXrVnzRMp65r5vf21LJGTgJwR2b66m97zYJoXx951n-pr4ruS1osMvT2c9ITsplpPU37RlSqJsSgba&s=1` |
 | Sanitized | `https://www.fsf.org/campaigns`                                                                                                                                                                                  |
-|                | **Reddit redirect**                                                                                                                                                                                              |
+|           | **Reddit redirect**                                                                                                                                                                                              |
 | Original  | `https://out.reddit.com/t3_5pq7qd?url=https%3A%2F%2Finternethealthreport.org%2Fv01%2F&token=AQAAZV6JWHBBnIcVjV1wvxVg5gKyCQQSdUhGIvuEUmdPZhxhm8kH&app_name=reddit.com`                                            |
 | Sanitized | `https://internethealthreport.org/v01/`                                                                                                                                                                          |
-|                | **Steam redirect**                                                                                                                                                                                               |
+|           | **Steam redirect**                                                                                                                                                                                               |
 | Original  | `https://steamcommunity.com/linkfilter/?url=https://getfedora.org/`                                                                                                                                              |
 | Sanitized | `https://getfedora.org/`                                                                                                                                                                                         |
-
 
 For a full list of test cases, have a look at the included [test_urls.html](https://github.com/apiraino/link_cleaner/blob/master/test_urls.html) file.
 
@@ -74,13 +73,14 @@ Enable extension debugging from `about:debugging` to see logging.
 First, deactivate/uninstall AMO-installed add-on. Then, visit `about:debugging#/runtime/this-firefox`, and use "Load Temporary Add-on..." to select the `manifest.json` file in this directory. It will be unloaded when Firefox restarts.
 
 # Build extension for publishing
-``` bash
+
+```bash
 # not signed, local installation (load from about:debugging#/runtime/this-firefox)
 $ rm -f ~/tmp/link_cleaner_x.y.zip
 $ zip -r -FS ~/tmp/link_cleaner_x.y.xpi manifest.json *.js _locales/ options/ assets/icon*
 ```
 
-``` bash
+```bash
 # build and sign for publishing on AMO (needs API key set in env)
 $ web-ext sign -i web-ext-run.sh
 $ ls web-ext-artifacts/
