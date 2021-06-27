@@ -1,39 +1,39 @@
 {
-    "author": "apiraino",
-    "background": {
-        "scripts": [
-            "prefs.js",
-            "cleaning_rules.js",
-            "menu.js",
-            "background.js",
-            "copy.js"
-        ]
-    },
-    "description": "Clean URLs before opening a link, removes trackers, rewrites redirects pages such as of Amazon, Facebook, Steam, Reddit (more to come!) and AMP urls.",
-    "homepage_url": "https://github.com/apiraino/link_cleaner",
-    "manifest_version": 2,
-    "name": "Link Cleaner+",
-    "applications": {
-        "gecko": {
-            "id": "{43dbd17d-3ab0-4339-addc-5c434effc7a9}"
-        }
-    },
-    "permissions": [
-        "<all_urls>",
-        "webRequest",
-        "webRequestBlocking",
-        "contextMenus",
-        "menus",
-        "storage",
-        "clipboardWrite"
-    ],
-    "options_ui": {
-        "page": "options/options.html"
-    },
-    "version": "1.7.3",
-    "default_locale": "en",
-    "icons": {
-        "48": "assets/icon.png",
-        "96": "assets/icon@2x.png"
+  "author": "apiraino",
+  "background": {
+    "scripts": [
+      "prefs.js",
+      "cleaning_rules.js",
+      "menu.js",
+      "background.js",
+      "copy.js"
+    ]
+  },
+  "description": "Clean URLs before opening a link, removes trackers, rewrites redirects pages such as of Amazon, Facebook, Steam, Reddit (more to come!) and AMP urls.",
+  "homepage_url": "https://github.com/apiraino/link_cleaner",
+  "manifest_version": 2,
+  "name": "Link Cleaner+",
+  "applications": {
+    "gecko": {
+      "id": "{43dbd17d-3ab0-4339-addc-5c434effc7a9}"
     }
+  },
+  "permissions": [
+    "<all_urls>",
+    "webRequest",
+    "webRequestBlocking",
+    "contextMenus",
+    "menus",
+    "storage",
+    "clipboardWrite"
+  ],
+  "options_ui": {
+    "page": "options/options.html"
+  },
+  "version": "1.7.4",
+  "default_locale": "en",
+  "icons": {
+    "48": "assets/icon.png",
+    "96": "assets/icon@2x.png"
+  }
 }
