@@ -10,13 +10,13 @@
     },
 
     "menuItemCopyAndClean": {
-        "message": "Link-Addresse kopieren und reinigen",
+        "message": "Link-&Addresse kopieren und reinigen",
         "description": "Title of context menu item."
     },
 
     "settingsTitle": {
         "message": "Einstellungen:",
-        "description": "Whether to clean AMP links too"
+        "description": "Title for advanced settings"
     },
 
     "settingsSanitizeAMPLabel": {

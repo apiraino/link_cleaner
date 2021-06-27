@@ -5,32 +5,32 @@
     },
 
     "extensionDescription": {
-        "message": "Browser extension to clean URLs that are about to be visited.",
+        "message": "Tiện ích mở rộng để làm sạch URL trước khi đi đến.",
         "description": "Description of the extension."
     },
 
     "menuItemCopyAndClean": {
-        "message": "Copy cle&an link",
+        "message": "S&ao chép đường dẫn sạch",
         "description": "Title of context menu item."
     },
 
     "settingsTitle": {
-        "message": "Settings:",
+        "message": "Cài đặt:",
         "description": "Title for advanced settings"
     },
 
     "settingsSanitizeAMPLabel": {
-        "message": "Clean AMP links",
+        "message": "Làm sạch đường dẫn AMP",
         "description": "Whether to clean AMP links too"
     },
 
     "settingsRedirectRedditNoJSLabel": {
-        "message": "Redirect to Reddit nojs\n(www.reddit.com -> old.reddit.com)",
+        "message": "Chuyển hướng đến nojs Reddit\n(www.reddit.com -> old.reddit.com)",
         "description": "Whether to redirect to the no-js friendly"
     },
 
     "settingsSavePrefs": {
-        "message": "Save Preferences",
+        "message": "Lưu cài đặt",
         "description": "Says it all ..."
     }
 }

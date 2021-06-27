@@ -5,32 +5,32 @@
     },
 
     "extensionDescription": {
-        "message": "Browser extension to clean URLs that are about to be visited.",
+        "message": "リンクを洗ったら開くアドオン",
         "description": "Description of the extension."
     },
 
     "menuItemCopyAndClean": {
-        "message": "Copy cle&an link",
+        "message": "リンクを洗ってコピー(&A)",
         "description": "Title of context menu item."
     },
 
     "settingsTitle": {
-        "message": "Settings:",
+        "message": "設定",
         "description": "Title for advanced settings"
     },
 
     "settingsSanitizeAMPLabel": {
-        "message": "Clean AMP links",
+        "message": "AMPリンクを洗う",
         "description": "Whether to clean AMP links too"
     },
 
     "settingsRedirectRedditNoJSLabel": {
-        "message": "Redirect to Reddit nojs\n(www.reddit.com -> old.reddit.com)",
+        "message": "no-JS Redditにリダイレクト\n(www.reddit.com -> old.reddit.com)",
         "description": "Whether to redirect to the no-js friendly"
     },
 
     "settingsSavePrefs": {
-        "message": "Save Preferences",
+        "message": "保存",
         "description": "Says it all ..."
     }
 }

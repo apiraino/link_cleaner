@@ -53,7 +53,7 @@ That means it's doing less unneeded work and consumes less resources (memory and
 
 # Warnings
 
-- Cleaning Amazon URLs will break any affiliation program. Use the usual "copy link location" shortcut if you want to support the third-party affiliate program.
+- Cleaning Amazon URLs will break any affiliation program. Use the usual "Copy Link" (L) shortcut if you want to support the third-party affiliate program.
 
 - Cleaning Slack redirect URLs could potentially leak company's sensitive links, see [the documentation](https://slack.com/intl/en-de/help/articles/115004155306#click-shared-links-with-caution).
 
@@ -68,6 +68,10 @@ Notice that since the profile is created at runtime, preferences saved by the ex
 The profile should be located in `/tmp`.
 
 Enable extension debugging from `about:debugging` to see logging.
+
+# Test the extension locally in normal Firefox profile
+
+First, deactivate/uninstall AMO-installed add-on. Then, visit `about:debugging#/runtime/this-firefox`, and use "Load Temporary Add-on..." to select the `manifest.json` file in this directory. It will be unloaded when Firefox restarts.
 
 # Build extension for publishing
 ``` bash
