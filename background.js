@@ -1,6 +1,6 @@
 "use strict";
 
-function isEmptyObject (obj) {
+function isEmptyObject(obj) {
     return (Object.keys(obj).length === 0 && obj.constructor === Object);
 }
 
@@ -30,7 +30,7 @@ function clean_amp(url) {
 function link_cleaner(orig_url, shouldRemove) {
     // console.debug("[link_cleaner] got " + orig_url + " and " + shouldRemove);
     var url = new URL(orig_url);
-    var ret_val = {'redirectUrl': ''};
+    var ret_val = { 'redirectUrl': '' };
 
     if (url.search.length > 0) {
         var params = url.searchParams;
@@ -47,7 +47,7 @@ function link_cleaner(orig_url, shouldRemove) {
         if (needs_redirect) {
             console.debug("[link_cleaner][link_cleaner] needs redirect!!");
             url.search = new_params.toString();
-            ret_val = {redirectUrl: url.href};
+            ret_val = { redirectUrl: url.href };
         }
 
         // clean AMP url
@@ -57,7 +57,7 @@ function link_cleaner(orig_url, shouldRemove) {
             console.debug("[link_cleaner][link_cleaner] AMP cleaning ACTIVE");
             var cleaned_url = clean_amp(url);
             if (cleaned_url.href !== url.href) {
-                ret_val = {redirectUrl: cleaned_url.href};
+                ret_val = { redirectUrl: cleaned_url.href };
             }
         }
 
@@ -68,7 +68,7 @@ function link_cleaner(orig_url, shouldRemove) {
 };
 
 function build_query_param_remover(shouldRemove) {
-    return function(requestDetails) {
+    return function (requestDetails) {
         return link_cleaner(requestDetails.url, shouldRemove);
     };
 }
@@ -79,7 +79,7 @@ browser.webRequest.onBeforeRequest.addListener(
     clean_utm_req,
     {
         urls: ["<all_urls>"],
-        types:["main_frame"]
+        types: ["main_frame"]
     },
     ["blocking"]
 );
@@ -101,6 +101,16 @@ browser.webRequest.onBeforeRequest.addListener(
     clean_igshid,
     {
         urls: instagram_regexp,
+        types: ["main_frame"]
+    },
+    ["blocking"]
+);
+
+var clean_twitter_s_or_t = build_query_param_remover(t_match_s_or_t);
+browser.webRequest.onBeforeRequest.addListener(
+    clean_twitter_s_or_t,
+    {
+        urls: twitter_regexp,
         types: ["main_frame"]
     },
     ["blocking"]
@@ -146,8 +156,9 @@ function clean_amazon(url) {
 
 browser.webRequest.onBeforeRequest.addListener(
     clean_amazon_req,
-    {urls: amazon_regexp,
-     types: ["main_frame"]
+    {
+        urls: amazon_regexp,
+        types: ["main_frame"]
     },
     ["blocking"]
 );
@@ -173,7 +184,7 @@ browser.webRequest.onBeforeRequest.addListener(
     ["blocking"]
 );
 
-function redirect_to_query_param (query_param, url) {
+function redirect_to_query_param(query_param, url) {
     console.log("[link_cleaner][redirect_to_query_param] will pick p=" + query_param + " url=" + url);
     const search_params = new URLSearchParams(new URL(url).search);
     const real_url_from_param = search_params.get(query_param);
@@ -186,7 +197,7 @@ function redirect_to_query_param (query_param, url) {
 };
 
 function build_redirect_to_query_param(query_param) {
-    return function(requestDetails) {
+    return function (requestDetails) {
         return redirect_to_query_param(query_param, requestDetails.url);
     };
 }
@@ -269,25 +280,25 @@ browser.webRequest.onBeforeRequest.addListener(
 // FIXME: change the format in localStorage to directly retrieve the key
 // ex. get('clean_amp_links')
 const rewriteRedditUrl = requestDetails => browser.storage.local.get()
-      .then(items => {
-          // FIXME: this is ugly
-          var restoredSettingsKeys = {};
-          for(let i = 0; i < items.dataTypes.length; i++) {
-              var obj = items.dataTypes[i];
-              for (let key of Object.keys(obj)) {
-                  restoredSettingsKeys[key] = obj[key];
-              }
-          }
-          if (restoredSettingsKeys['redirect_reddit_nojs'] === true) {
-              console.debug("[link_cleaner][rewriteRedditUrl] Reddit redirect ACTIVE");
-              return ({ redirectUrl: requestDetails.url.replace('www', 'old') });
-          }
-          return ({ redirectUrl: '' });
-      })
-      .catch(error => {
-          console.log(`[link_cleaner][rewriteRedditUrl] Error: ${error}`);
-          return ({ redirectUrl: '' });
-      });
+    .then(items => {
+        // FIXME: this is ugly
+        var restoredSettingsKeys = {};
+        for (let i = 0; i < items.dataTypes.length; i++) {
+            var obj = items.dataTypes[i];
+            for (let key of Object.keys(obj)) {
+                restoredSettingsKeys[key] = obj[key];
+            }
+        }
+        if (restoredSettingsKeys['redirect_reddit_nojs'] === true) {
+            console.debug("[link_cleaner][rewriteRedditUrl] Reddit redirect ACTIVE");
+            return ({ redirectUrl: requestDetails.url.replace('www', 'old') });
+        }
+        return ({ redirectUrl: '' });
+    })
+    .catch(error => {
+        console.log(`[link_cleaner][rewriteRedditUrl] Error: ${error}`);
+        return ({ redirectUrl: '' });
+    });
 
 // Reddit redirect
 browser.webRequest.onBeforeRequest.addListener(
@@ -299,7 +310,7 @@ browser.webRequest.onBeforeRequest.addListener(
     ["blocking"]
 );
 
-urls_to_param_mappers.forEach(function(listenerConfig) {
+urls_to_param_mappers.forEach(function (listenerConfig) {
     const query_param = listenerConfig.query_param ? listenerConfig.query_param : 'url';
     // console.debug('Mapping ' + listenerConfig.urls + ' to param name ' + query_param);
     browser.webRequest.onBeforeRequest.addListener(
