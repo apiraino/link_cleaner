@@ -100,6 +100,10 @@ const instagram_regexp = [
     "*://*.instagram.com/*",
 ];
 
+const twitter_regexp = [
+    "*://*.twitter.com/*"
+]
+
 // query params matching used in link_cleaner()
 
 const f_match_utm = p => p.startsWith("utm_");
@@ -107,3 +111,4 @@ const f_match_all = p => true;
 const f_match_fbclid = p => p == "fbclid";
 const f_match_igshid = p => p == "igshid";
 const f_match_fbcontent = p => p == "efg";
+const t_match_s_or_t = p => (p == "s" || p == "t");
