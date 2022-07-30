@@ -30,7 +30,7 @@
   "options_ui": {
     "page": "options/options.html"
   },
-  "version": "1.7.4",
+  "version": "1.7.5",
   "default_locale": "en",
   "icons": {
     "48": "assets/icon.png",

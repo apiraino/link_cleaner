@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.7.5] - 2022-07-30
+
+### Added
+
+- Clean Twitter source links [#37](https://github.com/apiraino/link_cleaner/issues/37)
+
 ## [1.7.4] - 2021-06-27
 
 ### Changed
