@@ -73,6 +73,7 @@ function cleaner_entrypoint (orig_link) {
     new_link = maybe_clean(new_link, aliexpress_regexp, f_match_all);
     new_link = maybe_clean(new_link, fbcontent_regexp, f_match_fbcontent);
     new_link = maybe_clean(new_link, instagram_regexp, f_match_igshid);
+    new_link = maybe_clean(new_link, twitter_regexp, t_match_s_or_t);
 
     // 3rd check: (optional) clean Amazon URL
     if (settings['clean_amp_links'] === true) {
