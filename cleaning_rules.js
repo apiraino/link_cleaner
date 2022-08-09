@@ -101,7 +101,8 @@ const instagram_regexp = [
 ];
 
 const twitter_regexp = [
-    "*://*.twitter.com/*"
+    "*://*.twitter.com/*",
+    "*://twitter.com/*",
 ]
 
 // query params matching used in link_cleaner()
