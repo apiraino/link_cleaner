@@ -14,7 +14,7 @@ Feature list:
 
 - [x] removes utm\_\* parameters
 - [x] on item pages such as of Aliexpress and Amazon, removes tracking parameters
-- [x] on item pages of Amazon, rewrites SEO friendly links to the tbare minimum (see examples below)
+- [x] on item pages of Amazon, rewrites SEO friendly links to the bare minimum (see examples below)
 - [x] Configurable flag to enable / disable AMP links cleanlinks (Why are [Google AMP page bad](https://love2dev.com/blog/problems-with-google-accelerated-mobile-pages-and-fighting-back/)?)
 - [x] Context menu item to copy sanitized link to clipboard
 - [x] skip redirect pages of facebook, steam and reddit (directly go to the url being redirected to, and never hit their outgoing redirect tracking)
