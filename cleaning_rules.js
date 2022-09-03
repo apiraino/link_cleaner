@@ -44,7 +44,7 @@ const amazon_regexp = [
     "*://*.amazon.com.au/gp/aw/d/*",
     "*://*.amazon.com.br/gp/aw/d/*",
 
-    // SEO friendly descriptiion + detail product
+    // SEO friendly description + detail product
     "*://*.amazon.com/*/dp/*",
     "*://*.amazon.ca/*/dp/*",
     "*://*.amazon.co.jp/*/dp/*",
