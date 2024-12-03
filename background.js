@@ -230,6 +230,10 @@ const urls_to_param_mappers = [
         query_param: 'q'
     },
     {
+        urls: ["*://search.app/*"],
+        query_param: 'link'
+    },
+    {
         urls: ["*://slack-redir.net/link*"]
     },
     {
